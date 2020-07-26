@@ -1,0 +1,13 @@
+Created by Mylov on 25-Jul-20
+
+This is a concept file with following syntax for each concept.
+# Concept Heading
+* step1
+* step2
+# Data
+*nơi lưu trữ tất cả những gì liên quan đến data bao gồm :
+* 1 Model: Mỗi thực thể chỉ cho phép khởi tạo 1 model
+* 2 Local: Nơi đây lưu trữ tât cả dữ liệu xuống local, có thể lưu trữ bằng Hive, sharePreference, hoặc sqlite
+* 3 Remote: Lưu trữ tất cả cách hàm gọi api, abstract class CRUD (RestFullAPI)
+* 4 Responsitory : Nơi đây liêu trữ tất cả những gì liên quan đến link api,..v..v
+// dữ liệu sẽ liên tục được cập nhập

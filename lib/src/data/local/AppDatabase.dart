@@ -1,0 +1,1 @@
+//config không gian lưu trữ Sqlite của app
