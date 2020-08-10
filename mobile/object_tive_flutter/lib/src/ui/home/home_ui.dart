@@ -5,6 +5,7 @@ import 'package:object_tive_test/src/utlis/manager/size_manager.dart';
 import 'package:object_tive_test/src/utlis/widget/app_bar.dart';
 
 class HomeUI extends StatefulWidget {
+  static String routName ="/HomeUI";
   @override
   _HomeUIState createState() => _HomeUIState();
 }

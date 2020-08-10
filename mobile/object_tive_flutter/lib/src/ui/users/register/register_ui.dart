@@ -6,6 +6,7 @@ import 'package:object_tive_test/src/utlis/extension/widget.dart';
 import 'package:object_tive_test/src/utlis/widget/app_bar.dart';
 
 class RegisterUI extends StatefulWidget {
+  static String routName ="/RegisterUI";
   @override
   _RegisterUIState createState() => _RegisterUIState();
 }

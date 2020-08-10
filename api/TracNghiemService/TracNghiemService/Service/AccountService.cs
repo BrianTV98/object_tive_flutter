@@ -2,6 +2,7 @@
 using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using TracNghiemService.Common;
 using TracNghiemService.IService;
 using TracNghiemService.Model;
@@ -12,16 +13,6 @@ namespace TracNghiemService.Service
     {
         public bool ChangePaswword(string userName, string oldPassword, string newPassword)
         {
-            throw new NotImplementedException();
-        }
-
-        public bool CheckCode(string code)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool Login(string username, string password)
-        {
             try
             {
                 using (IDbConnection con = new SqlConnection(Global.ConnectionString))
@@ -29,7 +20,7 @@ namespace TracNghiemService.Service
 
                     if (con.State == ConnectionState.Closed) con.Open();
 
-                    var check = con.Query<User>("SP_LOGIN", param: new {username, password}, commandType: CommandType.StoredProcedure);
+                    var check = con.Query<ResultRespone>("SP_CHANGPASSWORD", param: new { userName, oldPassword, newPassword }, commandType: CommandType.StoredProcedure);
 
                     return System.Convert.ToBoolean(check);
                 }
@@ -42,9 +33,36 @@ namespace TracNghiemService.Service
             return false;
         }
 
+        public bool CheckCode(string code)
+        {
+            return true;
+        }
+
+        public bool Login(string username, string password)
+        {
+            try
+            {
+                using (IDbConnection con = new SqlConnection(Global.ConnectionString))
+                {
+
+                    if (con.State == ConnectionState.Closed) con.Open();
+
+                    var check = con.Query<ResultRespone>("SP_LOGIN", param: new {username, password}, commandType: CommandType.StoredProcedure);
+
+                    return check.First<ResultRespone>().States;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return false;
+        }
+
         public bool SendMailPassword(string email)
         {
-            throw new NotImplementedException();
+            return true;
         }
     }
 }

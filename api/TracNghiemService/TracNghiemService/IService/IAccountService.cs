@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace TracNghiemService.IService
 {
-    interface IAccountService
+    public interface IAccountService
     {
         bool Login(String username, String password);
 

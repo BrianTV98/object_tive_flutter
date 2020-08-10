@@ -4,6 +4,7 @@ import 'package:object_tive_test/src/utlis/manager/size_manager.dart';
 import 'package:object_tive_test/src/utlis/widget/app_bar.dart';
 
 class ForogtPasswordUI extends StatefulWidget {
+  static String routName ="/ForogtPasswordUI";
   @override
   _ForogtPasswordUIState createState() => _ForogtPasswordUIState();
 }

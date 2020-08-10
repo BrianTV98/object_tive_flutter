@@ -3,6 +3,7 @@ import 'package:object_tive_test/src/utlis/manager/image_manager.dart';
 import 'package:object_tive_test/src/utlis/widget/app_bar.dart';
 
 class LanguageUI extends StatefulWidget {
+  static String routName ="/LanguageUI";
   @override
   _LanguageUIState createState() => _LanguageUIState();
 }

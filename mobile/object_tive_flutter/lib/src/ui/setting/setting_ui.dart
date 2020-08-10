@@ -3,6 +3,7 @@ import 'package:object_tive_test/src/utlis/manager/image_manager.dart';
 import 'package:object_tive_test/src/utlis/manager/size_manager.dart';
 import 'package:object_tive_test/src/utlis/extension/widget.dart';
 class SettingUI extends StatefulWidget {
+  static String routName ="/SettingUI";
   @override
   _SettingUIState createState() => _SettingUIState();
 }

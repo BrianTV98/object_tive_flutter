@@ -33,7 +33,7 @@ namespace TracNghiemService
             services.AddControllers();
             services.AddSingleton<IConfiguration>(Configuration);
             Global.ConnectionString = Configuration.GetConnectionString("TracNghiem");
-            services.AddScoped<IUserSevice, TracNghiemService.Service.UserService>();
+            services.AddScoped<IUserSevice, UserService>();
             //string dbConnectionString = this.Configuration.GetConnectionString("TracNghiem");
             //services.AddTransient<IDbConnection>((sp) => new SqlConnection(dbConnectionString));
             services.AddScoped<IAccountService, AccountService>();
