@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
+import 'package:object_tive_test/src/ui/home/home_bloc.dart';
+import 'package:object_tive_test/src/ui/home/home_ui.dart';
 import 'package:object_tive_test/src/ui/users/forgot/forgot_password_ui.dart';
+import 'package:object_tive_test/src/ui/users/language/language_ui.dart';
+import 'package:object_tive_test/src/ui/users/login/login_2_ui.dart';
 import 'package:object_tive_test/src/ui/users/login/login_ui.dart';
 import 'package:object_tive_test/src/ui/users/register/register_ui.dart';
+import 'package:object_tive_test/src/ui/users/resetpassword/reset_password_ui.dart';
+import 'package:object_tive_test/src/ui/users/update/update_ui.dart';
 
 void main() {
   runApp(GetMaterialApp(
@@ -14,7 +20,7 @@ void main() {
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
 
-  Map<int, Color> colorCodes = {
+   final Map<int, Color> colorCodes = {
     50: Color.fromRGBO(42, 112, 146, .1),
     100: Color.fromRGBO(42, 112, 146, .2),
     200: Color.fromRGBO(42, 112, 146, .3),
@@ -34,9 +40,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: color,
+        primaryColor: color,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: ForogtPasswordUI(),
+      home: UpdateUI(),
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate
       ],

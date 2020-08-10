@@ -26,6 +26,13 @@ class SizeManager{
 
   final double sizeIconAvatDefault =100;
 
+  final double siz_icon_default=50;
+
+  final double siz_icon_medium=35;
+
+  final double siz_icon_small=20;
+
+
   /// size padding
 
   final double size_padding_large =20;

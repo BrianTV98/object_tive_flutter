@@ -14,6 +14,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using TracNghiemService.Common;
 using TracNghiemService.IService;
+using TracNghiemService.Service;
 
 namespace TracNghiemService
 {
@@ -33,9 +34,10 @@ namespace TracNghiemService
             services.AddSingleton<IConfiguration>(Configuration);
             Global.ConnectionString = Configuration.GetConnectionString("TracNghiem");
             services.AddScoped<IUserSevice, TracNghiemService.Service.UserService>();
-            string dbConnectionString = this.Configuration.GetConnectionString("TracNghiem");
-            services.AddTransient<IDbConnection>((sp) => new SqlConnection(dbConnectionString));
-           
+            //string dbConnectionString = this.Configuration.GetConnectionString("TracNghiem");
+            //services.AddTransient<IDbConnection>((sp) => new SqlConnection(dbConnectionString));
+            services.AddScoped<IAccountService, AccountService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

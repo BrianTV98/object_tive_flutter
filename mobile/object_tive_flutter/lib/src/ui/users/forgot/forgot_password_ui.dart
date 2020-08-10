@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:object_tive_test/src/utlis/manager/image_manager.dart';
 import 'package:object_tive_test/src/utlis/manager/size_manager.dart';
-import 'package:object_tive_test/src/utlis/uic/app_bar.dart';
+import 'package:object_tive_test/src/utlis/widget/app_bar.dart';
 
 class ForogtPasswordUI extends StatefulWidget {
   @override
