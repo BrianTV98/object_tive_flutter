@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
+import 'package:object_tive_test/src/data/local/share_pref.dart';
+import 'package:object_tive_test/src/loading_page.dart';
 import 'package:object_tive_test/src/router_manager.dart';
 import 'package:object_tive_test/src/ui/home/home_bloc.dart';
 import 'package:object_tive_test/src/ui/home/home_ui.dart';
@@ -18,13 +20,16 @@ import 'package:object_tive_test/src/utlis/widget/restar_widget.dart';
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   ServicesBinding.instance.defaultBinaryMessenger;
+  await SharedPref.getInstance();
   runApp(
     RestartWidget(
       child: GetMaterialApp(
           debugShowCheckedModeBanner: false,
 //        home: MyApp(),
-        initialRoute: LoginScreenUI.routName,
+        initialRoute: LoadingPage.routerName,
         getPages: RouterManager.router(),
+        localizationsDelegates: [GlobalMaterialLocalizations.delegate],
+          supportedLocales: [const Locale('en'), const Locale('fr')]
       ),
     ),
   );
@@ -52,7 +57,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Phần mềm thi Trắc nghiệm',
       debugShowCheckedModeBanner: false,
-
       theme: ThemeData(
         primarySwatch: color,
         primaryColor: color,
@@ -61,7 +65,6 @@ class MyApp extends StatelessWidget {
       home: LoginScreenUI(),
       localizationsDelegates: [GlobalMaterialLocalizations.delegate],
       supportedLocales: [const Locale('en'), const Locale('fr')],
-
     );
   }
 }

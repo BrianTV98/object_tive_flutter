@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:object_tive_test/src/data/local/share_pref.dart';
+import 'package:object_tive_test/src/ui/users/login/login_ui.dart';
 import 'package:object_tive_test/src/utlis/manager/image_manager.dart';
+import 'package:object_tive_test/src/utlis/manager/prerence_namespace.dart';
 import 'package:object_tive_test/src/utlis/manager/size_manager.dart';
 import 'package:object_tive_test/src/utlis/extension/widget.dart';
 class SettingUI extends StatefulWidget {
@@ -107,12 +111,16 @@ class _SettingUIState extends State<SettingUI> {
                             )
                           ]
                       ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text("Đăng xuất", style: TextStyle(color: color),),
-                          Icon(Icons.power_settings_new,color: color,)
-                        ],
+                      child: GestureDetector(
+                        behavior: HitTestBehavior.translucent,
+                        onTap: ()=> signOut(),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("Đăng xuất", style: TextStyle(color: color),),
+                            Icon(Icons.power_settings_new,color: color,)
+                          ],
+                        ),
                       ),
                     ),
                   ],
@@ -122,5 +130,14 @@ class _SettingUIState extends State<SettingUI> {
           )
       ),
     );
+  }
+
+  void writeDataLocal() {
+    SharedPref.instance.setBool(NameSpace().isLogin, false);
+  }
+
+  void signOut() {
+    writeDataLocal();
+    Get.offAllNamed(LoginScreenUI.routName);
   }
 }

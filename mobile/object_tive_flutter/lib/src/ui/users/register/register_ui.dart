@@ -1,9 +1,12 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:object_tive_test/src/ui/users/register/register_bloc.dart';
+import 'package:object_tive_test/src/utlis/manager/BaseBloc.dart';
 import 'package:object_tive_test/src/utlis/manager/size_manager.dart';
 import 'package:object_tive_test/src/utlis/extension/widget.dart';
 import 'package:object_tive_test/src/utlis/widget/app_bar.dart';
+import 'package:intl/intl.dart';
 
 class RegisterUI extends StatefulWidget {
   static String routName ="/RegisterUI";
@@ -22,7 +25,7 @@ class _RegisterUIState extends State<RegisterUI> {
   TextEditingController _textPhoneController = TextEditingController();
   TextEditingController _textJobController = TextEditingController();
 
-  DateTime _birthdayPicker = DateTime.now();
+  DateTime _birthdayPicker ;
 
   FocusNode _userNameFocusNode = FocusNode();
   FocusNode _emailFocusNode = FocusNode();
@@ -33,10 +36,21 @@ class _RegisterUIState extends State<RegisterUI> {
   FocusNode _phoneFocusNode = FocusNode();
   FocusNode _textJobFocusNode = FocusNode();
 
+  RegisterBloc _registerBloc;
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    _registerBloc = BlocProvider.of<RegisterBloc>(context);
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBarCustom(),
+        appBar: AppBarCustom(
+          isTop: false,
+          flexibleSpace: false,
+        ),
         body: SafeArea(
           child: SingleChildScrollView(
             child: GestureDetector(
@@ -105,6 +119,7 @@ class _RegisterUIState extends State<RegisterUI> {
                           child: TextFormField(
                             controller: _textEmailController,
                             focusNode: _emailFocusNode,
+                            keyboardType: TextInputType.emailAddress,
                             textInputAction: TextInputAction.next,
                             onFieldSubmitted: (term) => _changeFocus(
                                 context, _emailFocusNode, _phoneFocusNode),
@@ -123,6 +138,7 @@ class _RegisterUIState extends State<RegisterUI> {
                             controller: _textPhoneController,
                             focusNode: _phoneFocusNode,
                             textInputAction: TextInputAction.next,
+                            keyboardType: TextInputType.number,
                             onFieldSubmitted: (term) =>
                                 _changeFocus(context, _phoneFocusNode, null),
                             decoration: InputDecoration(
@@ -145,7 +161,8 @@ class _RegisterUIState extends State<RegisterUI> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      "Ngày Sinh",
+                                (_birthdayPicker!=null)?DateFormat("EEEE-dd/MM/yyyy-kk:mm").format(_birthdayPicker).toString() :
+                                       "Ngày Sinh",
                                       style: TextStyle(
                                           color: Colors.black54, fontSize: 16),
                                     ),
@@ -176,6 +193,7 @@ class _RegisterUIState extends State<RegisterUI> {
                             textInputAction: TextInputAction.next,
                             onFieldSubmitted: (term) => _changeFocus(context,
                                 _passwordFocusNode, _confirmPasswordFocusNode),
+                            obscureText: true,
                             decoration: InputDecoration(
                               hintText: "Mật khẩu",
                             ),
@@ -191,6 +209,7 @@ class _RegisterUIState extends State<RegisterUI> {
                             controller: _textConfirmPasswordController,
                             focusNode: _confirmPasswordFocusNode,
                             textInputAction: TextInputAction.done,
+                            obscureText: true,
                             decoration: InputDecoration(
                               hintText: "Nhập lại mật khẩu",
                             ),
@@ -223,7 +242,7 @@ class _RegisterUIState extends State<RegisterUI> {
                     Align(
                       alignment: Alignment.bottomCenter,
                       child: GestureDetector(
-                        onTap: () => btnLogin(),
+                        onTap: () => _registerBloc.btnRegister(_textUserNameController.text, _textFullNameController.text,_textPhoneController.text, _textEmailController.text, _birthdayPicker, _textPasswordController.text, _textConfirmPasswordController.text),
                         child: Container(
                           decoration: BoxDecoration(
                               color: ThemeData().primaryColor,
@@ -269,9 +288,9 @@ class _RegisterUIState extends State<RegisterUI> {
       firstDate: DateTime(1900, 1),
       lastDate: DateTime.now(),
     );
-  }
+    setState(() {
+      _birthdayPicker = dateTime;
+    });
 
-  btnLogin() {
-    
   }
 }

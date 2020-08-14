@@ -15,7 +15,6 @@ G:\thuc_tap_tot_nghiep\src\api\TracNghiemService\TracNghiemService\bin\Debug\net
 G:\thuc_tap_tot_nghiep\src\api\TracNghiemService\TracNghiemService\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\sni.dll
 G:\thuc_tap_tot_nghiep\src\api\TracNghiemService\TracNghiemService\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
 G:\thuc_tap_tot_nghiep\src\api\TracNghiemService\TracNghiemService\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
-G:\thuc_tap_tot_nghiep\src\api\TracNghiemService\TracNghiemService\obj\Debug\netcoreapp3.1\TracNghiemService.csprojAssemblyReference.cache
 G:\thuc_tap_tot_nghiep\src\api\TracNghiemService\TracNghiemService\obj\Debug\netcoreapp3.1\TracNghiemService.AssemblyInfoInputs.cache
 G:\thuc_tap_tot_nghiep\src\api\TracNghiemService\TracNghiemService\obj\Debug\netcoreapp3.1\TracNghiemService.AssemblyInfo.cs
 G:\thuc_tap_tot_nghiep\src\api\TracNghiemService\TracNghiemService\obj\Debug\netcoreapp3.1\TracNghiemService.csproj.CoreCompileInputs.cache
@@ -27,3 +26,4 @@ G:\thuc_tap_tot_nghiep\src\api\TracNghiemService\TracNghiemService\obj\Debug\net
 G:\thuc_tap_tot_nghiep\src\api\TracNghiemService\TracNghiemService\obj\Debug\netcoreapp3.1\TracNghiemService.dll
 G:\thuc_tap_tot_nghiep\src\api\TracNghiemService\TracNghiemService\obj\Debug\netcoreapp3.1\TracNghiemService.pdb
 G:\thuc_tap_tot_nghiep\src\api\TracNghiemService\TracNghiemService\obj\Debug\netcoreapp3.1\TracNghiemService.genruntimeconfig.cache
+G:\thuc_tap_tot_nghiep\src\api\TracNghiemService\TracNghiemService\obj\Debug\netcoreapp3.1\TracNghiemService.csprojAssemblyReference.cache

@@ -3,13 +3,13 @@ import 'package:object_tive_test/src/utlis/manager/image_manager.dart';
 import 'package:object_tive_test/src/utlis/manager/size_manager.dart';
 import 'package:object_tive_test/src/utlis/widget/app_bar.dart';
 
-class ForogtPasswordUI extends StatefulWidget {
+class ForgotPasswordUI extends StatefulWidget {
   static String routName ="/ForogtPasswordUI";
   @override
-  _ForogtPasswordUIState createState() => _ForogtPasswordUIState();
+  _ForgotPasswordUIState createState() => _ForgotPasswordUIState();
 }
 
-class _ForogtPasswordUIState extends State<ForogtPasswordUI> {
+class _ForgotPasswordUIState extends State<ForgotPasswordUI> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -38,6 +38,29 @@ namespace TracNghiemService.Service
             return true;
         }
 
+        public bool CreateAccount(string userName, string fullName, string email, string phoneNumber, string birthday, string password, bool isAdmin)
+        {
+            try
+            {
+                using (IDbConnection con = new SqlConnection(Global.ConnectionString))
+                {
+
+                    if (con.State == ConnectionState.Closed) con.Open();
+
+                    var check = con.Query<ResultRespone>("SP_CREATE_ACCOUNT", param: new { userName, fullName, email, phoneNumber, birthday, password, isAdmin }, commandType: CommandType.StoredProcedure);
+
+
+                    return check.First<ResultRespone>().States;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return false;
+        }
+
         public bool Login(string username, string password)
         {
             try

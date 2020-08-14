@@ -15,7 +15,6 @@ namespace TracNghiemService.Controllers
     {
 
         IAccountService _accountService;
-
         public AccountController(IAccountService accountService)
         {
             _accountService = accountService;
@@ -27,6 +26,16 @@ namespace TracNghiemService.Controllers
             bool result = _accountService.Login(account.username, account.password);
 
             if (result == true) 
+                return Ok(new ResultRespone() { States = result });
+            return NoContent();
+        }
+
+        [HttpPost("createAccount")]
+        public ActionResult<ResultRespone> createAccount([FromBody] User user)
+        {
+            bool result = _accountService.CreateAccount(user.username, user.fullName, user.email,user.phoneNumber, user.birthday, user.password, false);
+
+            if (result == true)
                 return Ok(new ResultRespone() { States = result });
             return NoContent();
         }

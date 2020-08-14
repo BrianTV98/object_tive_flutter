@@ -15,5 +15,7 @@ namespace TracNghiemService.IService
 
         bool ChangePaswword(String userName, String oldPassword, String newPassword);
 
+        bool CreateAccount(String userName, String fullName, String email, String phoneNumber, String birthday, String password, bool isAdmin);
+
     }
 }
