@@ -20,6 +20,7 @@ namespace TracNghiemService
 {
     public class Startup
     {
+        readonly string MyAllowSpecificOrigins = "http://localhost:56134";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -30,10 +31,22 @@ namespace TracNghiemService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            //services.AddCors(options =>
+            //{
+            //    options.AddPolicy(name: MyAllowSpecificOrigins,
+            //                      builder =>
+            //                      {
+            //                          builder.WithOrigins("http://example.com",
+            //                                              "http://www.contoso.com");
+            //                      });
+            //});
+
             services.AddControllers();
             services.AddSingleton<IConfiguration>(Configuration);
             Global.ConnectionString = Configuration.GetConnectionString("TracNghiem");
             services.AddScoped<IUserSevice, UserService>();
+            services.AddScoped<ISubjectService, SubjectService>();
             //string dbConnectionString = this.Configuration.GetConnectionString("TracNghiem");
             //services.AddTransient<IDbConnection>((sp) => new SqlConnection(dbConnectionString));
             services.AddScoped<IAccountService, AccountService>();
@@ -52,6 +65,13 @@ namespace TracNghiemService
 
             app.UseRouting();
 
+            //app.UseCors(MyAllowSpecificOrigins);
+            app.UseCors(builder =>
+            {
+                builder.WithOrigins("http://localhost:51564");
+                builder.AllowAnyMethod();
+                builder.AllowAnyHeader();
+            });
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

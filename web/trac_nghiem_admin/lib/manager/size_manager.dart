@@ -42,5 +42,5 @@ class SizeManager{
   final double size_padding_medium =12;
 
   final double size_padding_small =8;
-  
+
 }

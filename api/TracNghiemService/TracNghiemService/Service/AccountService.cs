@@ -6,6 +6,7 @@ using System.Linq;
 using TracNghiemService.Common;
 using TracNghiemService.IService;
 using TracNghiemService.Model;
+using TracNghiemService.Model.respone;
 
 namespace TracNghiemService.Service
 {
@@ -61,7 +62,7 @@ namespace TracNghiemService.Service
             return false;
         }
 
-        public bool Login(string username, string password)
+        public UserRespone Login(string username, string password)
         {
             try
             {
@@ -70,9 +71,9 @@ namespace TracNghiemService.Service
 
                     if (con.State == ConnectionState.Closed) con.Open();
 
-                    var check = con.Query<ResultRespone>("SP_LOGIN", param: new {username, password}, commandType: CommandType.StoredProcedure);
+                    var check = con.Query<UserRespone>("SP_LOGIN", param: new {username, password}, commandType: CommandType.StoredProcedure);
 
-                    return check.First<ResultRespone>().States;
+                    return check.First<UserRespone>();
                 }
             }
             catch (Exception ex)
@@ -80,7 +81,7 @@ namespace TracNghiemService.Service
                 Console.WriteLine(ex.Message);
             }
 
-            return false;
+            return null;
         }
 
         public bool SendMailPassword(string email)

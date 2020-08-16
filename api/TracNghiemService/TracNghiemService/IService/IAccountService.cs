@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TracNghiemService.Model.respone;
 
 namespace TracNghiemService.IService
 {
     public interface IAccountService
     {
-        bool Login(String username, String password);
+        UserRespone Login(String username, String password);
 
         bool SendMailPassword(String email);
 

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TracNghiemService.IService;
 using TracNghiemService.Model;
+using TracNghiemService.Model.respone;
 
 namespace TracNghiemService.Controllers
 {
@@ -23,10 +24,10 @@ namespace TracNghiemService.Controllers
         [HttpPost("Login")]
         public ActionResult<ResultRespone> Login([FromBody] Account account)
         {
-            bool result = _accountService.Login(account.username, account.password);
+            UserRespone result = _accountService.Login(account.username, account.password);
 
-            if (result == true) 
-                return Ok(new ResultRespone() { States = result });
+            if (result != null) 
+                return Ok(result);
             return NoContent();
         }
 
