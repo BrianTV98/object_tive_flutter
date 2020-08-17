@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:trac_nghiem_admin/ui/home/EditQuestion/edit_question_bloc.dart';
+import 'package:trac_nghiem_admin/ui/home/EditQuestion/edit_question_ui.dart';
 import 'package:trac_nghiem_admin/ui/home/home_bloc.dart';
 import 'package:trac_nghiem_admin/ui/home/home_ui.dart';
 import 'package:trac_nghiem_admin/ui/login/login_bloc.dart';
@@ -16,6 +18,10 @@ class RouterManager {
           name: HomeUI.routName,
           page: () =>
               BlocProvider(bloc: HomeBloc(), child: HomeUI())))
+//      ..add(GetPage(
+//          name: EditQuestionUI.routerName,
+//          page: () =>
+//              BlocProvider(bloc: EditQuestionBloc(), child: EditQuestionUI())))
     ////////////////////////////////////////////////////
         ;
 

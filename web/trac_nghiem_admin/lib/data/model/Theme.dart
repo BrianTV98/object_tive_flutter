@@ -1,10 +1,10 @@
-class Theme {
+class Themes {
   int id;
   String name;
 
-  Theme({this.id, this.name});
+  Themes({this.id, this.name});
 
-  Theme.fromJson(Map<String, dynamic> json) {
+  Themes.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
   }

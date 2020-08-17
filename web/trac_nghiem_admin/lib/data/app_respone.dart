@@ -1,10 +1,12 @@
 import 'dart:convert';
 
 import 'package:trac_nghiem_admin/data/api_helper.dart';
+import 'package:trac_nghiem_admin/data/model/Question.dart';
 import 'package:trac_nghiem_admin/data/model/Subject.dart';
+import 'package:trac_nghiem_admin/data/model/Theme.dart';
 import 'package:trac_nghiem_admin/data/model/result_respone.dart';
 import 'package:http/http.dart' as http;
-String baseUrl = "http://192.168.1.99:8000/";
+String baseUrl = "http://192.168.1.114:8000/";
 String token ="";
 String autherUserName="hieu";
 String autherPassWord ="123";
@@ -103,16 +105,16 @@ class AppResponse{
       return null;
   }
 
-  Future<List<Subject>> listTheme(String id) async{
+  Future<List<Themes>> listTheme(String id) async{
     String url = baseUrl +"api/subject/ListTheme/$id";
 
     String jsons = await HttpRequest.instance.getAsync(url);
     if (jsons != null) {
       var data = jsonDecode(jsons) as List;
-      List<Subject> result =List<Subject>();
+      List<Themes> result =List<Themes>();
       if(data!=null){
         data.forEach((element) {
-          result.add(Subject.fromJson(element));
+          result.add(Themes.fromJson(element));
         });
       }
       return result;
@@ -121,4 +123,79 @@ class AppResponse{
       return null;
   }
 
+  Future<List<Question>> listQuestion(String id) async{
+    String url = baseUrl +"api/question/getQuestionFollowIdThemes/$id";
+
+    String jsons = await HttpRequest.instance.getAsync(url);
+    if (jsons != null) {
+      var data = jsonDecode(jsons) as List;
+      List<Question> result =List<Question>();
+      if(data!=null){
+        data.forEach((element) {
+            result.add(Question.fromJson(element));
+        });
+      }
+      return result;
+    }
+    else
+      return null;
+  }
+
+  Future<List<Question>> listQuestionFollowSubject(String idSubject) async{
+    String url = baseUrl +"api/question/getQuestionFollowIdSubject/$idSubject";
+
+    String jsons = await HttpRequest.instance.getAsync(url);
+    if (jsons != null) {
+      var data = jsonDecode(jsons) as List;
+      List<Question> result =List<Question>();
+      if(data!=null){
+        data.forEach((element) {
+          result.add(Question.fromJson(element));
+        });
+      }
+      return result;
+    }
+    else
+      return null;
+  }
+
+  Future<bool> deleteQuestion(String idQuestion) async{
+    String url = baseUrl +"api/question/deleteQuestion/$idQuestion";
+
+    String jsons = await HttpRequest.instance.getAsync(url);
+    if (jsons != null) {
+      var data = jsonDecode(jsons) as bool;
+
+      return data;
+    }
+    else
+      return false;
+  }
+
+  Future<Question> updateQuestion(Question question) async{
+    String url = baseUrl +"api/question/updateQuestion";
+
+    Map<String,dynamic> param = Map();
+    param.putIfAbsent("id", () => question.id);
+    param.putIfAbsent("idTheme", () => question.idTheme);
+    param.putIfAbsent("idLevel", () => question.idLevel);
+    param.putIfAbsent("question", () => question.question);
+    param.putIfAbsent("a", () => question.a);
+    param.putIfAbsent("b", () => question.b);
+    param.putIfAbsent("c", () => question.c);
+    param.putIfAbsent("d", () => question.d);
+    param.putIfAbsent("correct", () => question.correct);
+    param.putIfAbsent("explain", () => question.explain);
+
+    String jsons = await HttpRequest.instance.postAsync(url,param);
+    if (jsons != null) {
+      var data = jsonDecode(jsons);
+
+      Question result = Question.fromJson(data);
+
+      return result;
+    }
+    else
+      return null;
+  }
 }

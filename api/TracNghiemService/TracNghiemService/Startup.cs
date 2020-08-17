@@ -47,6 +47,7 @@ namespace TracNghiemService
             Global.ConnectionString = Configuration.GetConnectionString("TracNghiem");
             services.AddScoped<IUserSevice, UserService>();
             services.AddScoped<ISubjectService, SubjectService>();
+            services.AddScoped<IQuestionService, QuestionService>();
             //string dbConnectionString = this.Configuration.GetConnectionString("TracNghiem");
             //services.AddTransient<IDbConnection>((sp) => new SqlConnection(dbConnectionString));
             services.AddScoped<IAccountService, AccountService>();
@@ -68,7 +69,7 @@ namespace TracNghiemService
             //app.UseCors(MyAllowSpecificOrigins);
             app.UseCors(builder =>
             {
-                builder.WithOrigins("http://localhost:51564");
+                builder.WithOrigins("http://localhost:51128");
                 builder.AllowAnyMethod();
                 builder.AllowAnyHeader();
             });
