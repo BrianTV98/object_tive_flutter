@@ -69,7 +69,7 @@ namespace TracNghiemService
             //app.UseCors(MyAllowSpecificOrigins);
             app.UseCors(builder =>
             {
-                builder.WithOrigins("http://localhost:51128");
+                builder.WithOrigins("http://localhost:53971");
                 builder.AllowAnyMethod();
                 builder.AllowAnyHeader();
             });

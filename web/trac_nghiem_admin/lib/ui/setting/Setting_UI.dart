@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:trac_nghiem_admin/ui/home/InputQuestion/InputQuestionUI.dart';
 
 class SettingUI extends StatefulWidget {
 
@@ -16,11 +18,15 @@ class _SettingUIState extends State<SettingUI> {
         SizedBox(
           height: MediaQuery.of(context).size.height/4,
         ),
-        Text("THÊM CÂU HỎI",style: TextStyle(
-            color: Colors.blue,
-            fontSize: 18,
-            fontWeight: FontWeight.bold
-        ),),
+        GestureDetector(
+          behavior: HitTestBehavior.translucent,
+          onTap: ()=>Get.toNamed(InputQuestionUI.routerName),
+          child: Text("THÊM CÂU HỎI",style: TextStyle(
+              color: Colors.blue,
+              fontSize: 18,
+              fontWeight: FontWeight.bold
+          ),),
+        ),
 
         SizedBox(
           height: 30,

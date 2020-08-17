@@ -33,7 +33,6 @@ class _HomeUIState extends State<HomeUI> {
     // TODO: implement initState
     _homeBloc = BlocProvider.of<HomeBloc>(context);
     _homeBloc.getListSubject();
-
     super.initState();
   }
 
