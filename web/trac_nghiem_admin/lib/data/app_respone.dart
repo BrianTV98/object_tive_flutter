@@ -4,9 +4,10 @@ import 'package:trac_nghiem_admin/data/api_helper.dart';
 import 'package:trac_nghiem_admin/data/model/Question.dart';
 import 'package:trac_nghiem_admin/data/model/Subject.dart';
 import 'package:trac_nghiem_admin/data/model/Theme.dart';
+import 'package:trac_nghiem_admin/data/model/User.dart';
 import 'package:trac_nghiem_admin/data/model/result_respone.dart';
-import 'package:http/http.dart' as http;
-String baseUrl = "http://192.168.1.114:8000/";
+String baseUrl = "http://172.168.76.85:8000/";
+//String baseUrl = "http://192.168.1.114:8000/";
 String token ="";
 String autherUserName="hieu";
 String autherPassWord ="123";
@@ -57,8 +58,9 @@ class AppResponse{
     String jsons = await HttpRequest.instance.postAsync(url, param);
     if (jsons != null) {
       var data = jsonDecode(jsons);
-      ResultResponse result = ResultResponse.fromJson(data);
-      return result.states;
+      User result = User.fromJson(data);
+
+      return result.isAdmin;
     }
     else
       return false;
@@ -192,6 +194,27 @@ class AppResponse{
       var data = jsonDecode(jsons);
 
       Question result = Question.fromJson(data);
+
+      return result;
+    }
+    else
+      return null;
+  }
+
+
+  Future<List<Question>> insertQuestion(List<Question> questions) async{
+    String url = baseUrl +"api/question/createQuestion";
+
+
+    String jsons = await HttpRequest.instance.postCustomAsync(url,questions.map((e) => e.toJson()).toList());
+    if (jsons != null) {
+      var data = jsonDecode(jsons) as List;
+      List<Question> result= List<Question>();
+      if(data!=null){
+          data.forEach((element) {
+            result= element.fromJson(data);
+          });
+      }
 
       return result;
     }

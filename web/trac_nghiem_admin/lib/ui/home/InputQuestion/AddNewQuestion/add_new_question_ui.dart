@@ -4,11 +4,12 @@ import 'package:trac_nghiem_admin/data/model/Question.dart';
 
 class AddNewQuestionUI extends StatefulWidget {
 
+  final int index;
   final String idLevel;
   final String idSubject;
 
 
-  AddNewQuestionUI(this.idLevel, this.idSubject);
+  AddNewQuestionUI(this.index,this.idLevel, this.idSubject);
 
   @override
   _AddNewQuestionUIState createState() => _AddNewQuestionUIState();
@@ -28,9 +29,15 @@ class _AddNewQuestionUIState extends State<AddNewQuestionUI> {
   List<Question> _listQuestion = List<Question>();
   String _selectedAnswerCorrect ;
 
+  int index; // tạo id giả
+
+  String _selectedLevel;
+  List<String> _listLevel =["Dễ","TB","Khó"];
+
   @override
   void initState() {
     // TODO: implement initState
+    index= widget.index;
     super.initState();
   }
   @override
@@ -204,37 +211,81 @@ class _AddNewQuestionUIState extends State<AddNewQuestionUI> {
                 .of(context)
                 .size
                 .width / 3,
-            child: Text("Đáp án đúng", style: TextStyle(color: Colors.grey),textAlign: TextAlign.start,),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text("Đáp án đúng", style: TextStyle(color: Colors.grey),textAlign: TextAlign.start,),
+                Padding(
+                  padding: const EdgeInsets.only(right: 80),
+                  child: Text("Độ khó", style: TextStyle(color: Colors.grey),textAlign: TextAlign.start,),
+                ),
+              ],
+            ),
           ),
 
-          Padding(
-            padding:const EdgeInsets.symmetric(horizontal: 50, vertical: 5),
-            child: Container(
-              width: MediaQuery
-                  .of(context)
-                  .size
-                  .width / 3,
-              child: DropdownButtonFormField<String>(
-                decoration: InputDecoration(
-                    contentPadding: EdgeInsets.symmetric(horizontal: 16),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10)))
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Padding(
+                padding:const EdgeInsets.symmetric(horizontal: 50, vertical: 5),
+                child: Container(
+                  width: MediaQuery
+                      .of(context)
+                      .size
+                      .width / 5+20,
+                  child: DropdownButtonFormField<String>(
+                    decoration: InputDecoration(
+                        contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(10)))
+                    ),
+                    hint: Text("Đáp án đúng"),
+                    value: _selectedAnswerCorrect,
+                    items:_listAnswer.map((String value) {
+                      return  DropdownMenuItem<String>(
+                        value: value,
+                        child: new Text(value, style: TextStyle(color: Colors.blue),),
+                      );
+                    }).toList() ,
+                    onChanged: (String tmp) {
+                      setState(() {
+                        _selectedAnswerCorrect  = tmp;
+                      });
+                    },
+                  ),
                 ),
-                hint: Text("Đáp án đúng"),
-                value: _selectedAnswerCorrect,
-                items:_listAnswer.map((String value) {
-                  return  DropdownMenuItem<String>(
-                    value: value,
-                    child: new Text(value, style: TextStyle(color: Colors.blue),),
-                  );
-                }).toList() ,
-                onChanged: (String tmp) {
-                  setState(() {
-                    _selectedAnswerCorrect  = tmp;
-                  });
-                },
               ),
-            ),
+              // độ khó
+              Padding(
+                padding:const EdgeInsets.only(top: 5, bottom: 5, right: 50),
+                child: Container(
+                  width: MediaQuery
+                      .of(context)
+                      .size
+                      .width *2/ 35+50,
+                  child: DropdownButtonFormField<String>(
+                    decoration: InputDecoration(
+                        contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(10)))
+                    ),
+                    hint: Text("Độ khó"),
+                    value: _selectedLevel,
+                    items:_listLevel.map((String value) {
+                      return  DropdownMenuItem<String>(
+                        value: value,
+                        child: new Text(value, style: TextStyle(color: Colors.blue),),
+                      );
+                    }).toList() ,
+                    onChanged: (String tmp) {
+                      setState(() {
+                        _selectedLevel  = tmp;
+                      });
+                    },
+                  ),
+                ),
+              ),
+            ],
           ),
           //chú thích
           Padding(
@@ -279,17 +330,26 @@ class _AddNewQuestionUIState extends State<AddNewQuestionUI> {
               children: [
                 RaisedButton(
                   onPressed: () {
-//                    Question question = Question(id: 0,
-//                        idTheme: int.parse( widget.idSubject),
-//                        idLevel: int.parse(widget.idLevel),
-//                        a: _aAnswerController.text,
-//                        b: _bAnswerController.text,
-//                        c: _cAnswerController.text,
-//                        d: _dAnswerController.text,
-//                        question: _questionController.text,
-//                        explain: _explainAnswerController.text,
-//                        correct: _selectedAnswerCorrect);
-//                    Get.back(result: question);
+                    int check = checkValidate();
+
+                    if(check==1){
+                      Question question = Question(id: index,
+                          idTheme: int.parse( widget.idSubject),
+                          idLevel: int.parse(widget.idLevel),
+                          a: _aAnswerController.text,
+                          b: _bAnswerController.text,
+                          c: _cAnswerController.text,
+                          d: _dAnswerController.text,
+                          question: _questionController.text,
+                          explain: _explainAnswerController.text,
+                          correct: _selectedAnswerCorrect);
+                      _listQuestion.add(question);
+                    }
+
+                    setState(() {
+                      index++;
+                    });
+                    Get.back(result: _listQuestion);
                   },
                   child: Text("Hoàn tất"),
                 ),
@@ -299,9 +359,13 @@ class _AddNewQuestionUIState extends State<AddNewQuestionUI> {
 
                 RaisedButton(
                   onPressed: () {
+                    int dokho;
+                    if(_selectedLevel==_listLevel[0]) dokho=0;
+                    if(_selectedLevel==_listLevel[1]) dokho=1;
+                    if(_selectedLevel==_listLevel[2]) dokho=2;
                     Question question = Question(id: 0,
                         idTheme: int.parse( widget.idSubject),
-                        idLevel: int.parse(widget.idLevel),
+                        idLevel: dokho,
                         a: _aAnswerController.text,
                         b: _bAnswerController.text,
                         c: _cAnswerController.text,
@@ -344,6 +408,10 @@ class _AddNewQuestionUIState extends State<AddNewQuestionUI> {
     _dAnswerController.text="";
     _selectedAnswerCorrect="";
     _explainAnswerController.text="";
+  }
+
+  int checkValidate() {
+    return 1;
   }
 
 }

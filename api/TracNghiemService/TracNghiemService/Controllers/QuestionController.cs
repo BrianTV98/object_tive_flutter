@@ -76,5 +76,21 @@ namespace TracNghiemService.Controllers
             return NoContent();
         }
 
+
+        [HttpPost("createQuestion")]
+        public ActionResult<List<Question>> createQuestion([FromBody] List<Question> questions)
+        {
+            
+            foreach(var item in questions)
+            {
+                item.lastUpdate = DateTime.Now;
+            }
+            var data = _questionService.insertQuestion(questions);
+            //if (data != null)
+            //{
+                return Ok(data);
+            //}
+            //return NoContent();
+        }
     }
 }

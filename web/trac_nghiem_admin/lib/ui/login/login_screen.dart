@@ -97,6 +97,7 @@ class _LoginScreenUIState extends State<LoginScreenUI> {
 
               GestureDetector(
                 onTap: () => btnDangNhap(),
+                behavior: HitTestBehavior.translucent,
                 child: Container(
                   padding: EdgeInsets.symmetric(vertical: 16),
                   decoration: BoxDecoration(

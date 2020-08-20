@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trac_nghiem_admin/ui/home/InputQuestion/InputQuestionUI.dart';
+import 'package:trac_nghiem_admin/ui/home/home_ui.dart';
+import 'package:trac_nghiem_admin/ui/login/login_screen.dart';
 
 class SettingUI extends StatefulWidget {
 
@@ -31,11 +33,27 @@ class _SettingUIState extends State<SettingUI> {
         SizedBox(
           height: 30,
         ),
-        Text("ĐIỀU CHỈNH CÂU HỎI", style: TextStyle(
-          color: Colors.blue,
-          fontSize: 18,
-          fontWeight: FontWeight.bold
-        ),),
+        GestureDetector(
+          behavior: HitTestBehavior.translucent,
+          onTap: ()=> Get.offAllNamed(HomeUI.routName),
+          child: Text("ĐIỀU CHỈNH CÂU HỎI", style: TextStyle(
+            color: Colors.blue,
+            fontSize: 18,
+            fontWeight: FontWeight.bold
+          ),),
+        ),
+        SizedBox(
+          height: 30,
+        ),
+        GestureDetector(
+          behavior: HitTestBehavior.translucent,
+          onTap: ()=> Get.offAllNamed(LoginScreenUI.routName),
+          child: Text("ĐĂNG XUẤT", style: TextStyle(
+              color: Colors.blue,
+              fontSize: 18,
+              fontWeight: FontWeight.bold
+          ),),
+        ),
       ],
     );
   }

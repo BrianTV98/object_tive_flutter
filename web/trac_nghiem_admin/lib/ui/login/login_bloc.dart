@@ -16,7 +16,6 @@ class LoginBloc extends BaseBloc{
     if(checkValidation(username, password)){
       bool result =  await AppResponse().login(username, password);
 
-
       if(result) Get.toNamed(HomeUI.routName);
       else Get.snackbar("Lỗi", "Thông tin đăng nhập không chính xác");
     }

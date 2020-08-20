@@ -100,6 +100,40 @@ namespace TracNghiemService.Service
             return null;
         }
 
+        public List<Question> insertQuestion(List<Question> questions)
+        {
+            try
+            {
+                using (System.Data.IDbConnection con = new SqlConnection(Global.ConnectionString))
+                {
+
+                    if (con.State == ConnectionState.Closed) con.Open();
+
+                    List<Question> quesstionError = new List<Question>();
+                    foreach(var item in questions)
+                    {
+                        var check = con.Query<ResultRespone>("SP_INSERT_QUESTION", param: item, commandType: CommandType.StoredProcedure);
+                        try
+                        {
+                            if (check.First<ResultRespone>().States == false) quesstionError.Add(item);
+                        }
+                        catch(Exception e)
+                        {
+                            Console.WriteLine(e.Message);
+                        }
+                        
+                    }
+                   
+                    return quesstionError;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return null;
+        }
+
         public Question updateQuestion(Question question)
         {
             try

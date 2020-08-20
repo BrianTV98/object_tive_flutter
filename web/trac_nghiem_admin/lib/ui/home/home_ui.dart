@@ -252,6 +252,9 @@ class _HomeUIState extends State<HomeUI> {
                         label: Text("explain"),
                       ),
                       DataColumn(
+                        label: Text("Mức độ"),
+                      ),
+                      DataColumn(
                         label: Text(""),
                       ),
                       DataColumn(
@@ -276,6 +279,9 @@ class _HomeUIState extends State<HomeUI> {
                                       DataCell(Text(element?.d ?? "")),
                                       DataCell(Text(element?.correct ?? "")),
                                       DataCell(Text(element?.explain ?? "")),
+                                      DataCell(Container(
+                                        width: 50,
+                                          child: Text(levelToString(element.idLevel) ?? ""))),
                                       DataCell(IconButton(
                                         icon: Icon(Icons.edit, color: Colors.blue,),
                                         onPressed: ()=>showEditDialog(element),
@@ -344,5 +350,11 @@ class _HomeUIState extends State<HomeUI> {
       else  Get.snackbar("afsdfais", "Update thất bại");
 
     }
+  }
+
+  String levelToString(int idLevel) {
+    if(idLevel==1) return "Dễ";
+    if(idLevel==2) return "TB";
+    if(idLevel==3) return "Khó";
   }
 }

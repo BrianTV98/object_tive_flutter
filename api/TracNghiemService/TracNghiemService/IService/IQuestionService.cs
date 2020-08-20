@@ -18,5 +18,7 @@ namespace TracNghiemService.IService
 
         public Question updateQuestion(Question question);
 
+        public List<Question> insertQuestion(List<Question> questions);
+
     }
 }

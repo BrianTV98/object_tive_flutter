@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class Question {
   int id;
   int idTheme;
@@ -23,9 +25,9 @@ class Question {
         this.explain});
 
   Question.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    idTheme = json['idTheme'];
-    idLevel = json['idLevel'];
+    id = json['id']??0;
+    idTheme = json['idTheme']??0;
+    idLevel = json['idLevel']??0;
     question = json['question'];
     a = json['a'];
     b = json['b'];
@@ -34,6 +36,21 @@ class Question {
     correct = json['correct'];
     explain = json['explain'];
   }
+
+  Question.fromJsonTMP(Map<String, dynamic> json) {
+
+    id = json['id'];
+    idTheme = json['idTheme']??0;
+    idLevel = json['idLevel']??0;
+    question = json['question'];
+    a = json['a'];
+    b = json['b'];
+    c = json['c'];
+    d = json['d'];
+    correct = json['correct'];
+    explain = json['explain'];
+  }
+
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();

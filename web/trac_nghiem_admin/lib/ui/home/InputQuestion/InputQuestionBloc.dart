@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:get/get.dart';
 import 'package:trac_nghiem_admin/data/app_respone.dart';
 import 'package:trac_nghiem_admin/data/model/Question.dart';
 import 'package:trac_nghiem_admin/data/model/Subject.dart';
@@ -64,6 +65,21 @@ class InputQuestionBloc extends BaseBloc{
     _themesController.close();
     questionController.close();
     super.dispose();
+  }
+
+  Future<bool> insertQuestion(List<Question> listQuestion)async {
+    List<Question> result =  await AppResponse().insertQuestion(listQuestion);
+    if(result==null) {
+      Get.snackbar("Thông báo", "Upload Thành Công");
+      return true;
+    }
+    if(result.length==0){
+      Get.snackbar("Thông báo", "Upload Thành Công");
+      return true;
+    }
+
+    Get.snackbar("Thông báo", "Một vài câu hỏi đã không thể upload ..");
+
   }
 
 }

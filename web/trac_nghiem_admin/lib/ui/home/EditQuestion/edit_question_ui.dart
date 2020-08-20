@@ -25,6 +25,9 @@ class _EditQuestionUIState extends State<EditQuestionUI> {
   List<String> _listAnswer =["A","B","C","D"];
   String _selectedAnswerCorrect ;
 
+  String _selectedLevel;
+  List<String> _listLevel =["Dễ","TB","Khó"];
+
   @override
   void initState() {
     // TODO: implement initState
@@ -35,6 +38,7 @@ class _EditQuestionUIState extends State<EditQuestionUI> {
     _dAnswerController.text = widget._question.d;
     _explainAnswerController.text = widget._question.explain;
     _selectedAnswerCorrect= widget._question.correct;
+    _selectedLevel =levelToString(widget._question.idLevel);
     super.initState();
   }
 
@@ -80,7 +84,7 @@ class _EditQuestionUIState extends State<EditQuestionUI> {
             ),
           ),
 
-          //a
+//          //a
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 5),
             child: Container(
@@ -212,35 +216,71 @@ class _EditQuestionUIState extends State<EditQuestionUI> {
             child: Text("Đáp án đúng", style: TextStyle(color: Colors.grey),textAlign: TextAlign.start,),
           ),
 
-          Padding(
-            padding:const EdgeInsets.symmetric(horizontal: 50, vertical: 5),
-            child: Container(
-              width: MediaQuery
-                  .of(context)
-                  .size
-                  .width / 3,
-              child: DropdownButtonFormField<String>(
-                decoration: InputDecoration(
-                    contentPadding: EdgeInsets.symmetric(horizontal: 16),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10)))
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Padding(
+                padding:const EdgeInsets.symmetric(horizontal: 50, vertical: 5),
+                child: Container(
+                  width: MediaQuery
+                      .of(context)
+                      .size
+                      .width / 5+20,
+                  child: DropdownButtonFormField<String>(
+                    decoration: InputDecoration(
+                        contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(10)))
+                    ),
+                    hint: Text("Đáp án đúng"),
+                    value: _selectedAnswerCorrect,
+                    items:_listAnswer.map((String value) {
+                      return  DropdownMenuItem<String>(
+                        value: value,
+                        child: new Text(value, style: TextStyle(color: Colors.blue),),
+                      );
+                    }).toList() ,
+                    onChanged: (String tmp) {
+                      setState(() {
+                        _selectedAnswerCorrect  = tmp;
+                      });
+                    },
+                  ),
                 ),
-                hint: Text("Đáp án đúng"),
-                value: _selectedAnswerCorrect,
-                items:_listAnswer.map((String value) {
-                  return  DropdownMenuItem<String>(
-                    value: value,
-                    child: new Text(value, style: TextStyle(color: Colors.blue),),
-                  );
-                }).toList() ,
-                onChanged: (String tmp) {
-                  setState(() {
-                    _selectedAnswerCorrect  = tmp;
-                  });
-                },
               ),
-            ),
+              Padding(
+                padding:const EdgeInsets.only(top: 5, bottom: 5, right: 50),
+                child: Container(
+                  width: MediaQuery
+                      .of(context)
+                      .size
+                      .width *2/ 35+50,
+                  child: DropdownButtonFormField<String>(
+                    decoration: InputDecoration(
+                        contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(10)))
+                    ),
+                    hint: Text("Độ khó"),
+                    value: _selectedLevel,
+                    items:_listLevel.map((String value) {
+                      return  DropdownMenuItem<String>(
+                        value: value,
+                        child: new Text(value, style: TextStyle(color: Colors.blue),),
+                      );
+                    }).toList() ,
+                    onChanged: (String tmp) {
+                      setState(() {
+                        _selectedLevel  = tmp;
+                      });
+                    },
+                  ),
+                ),
+              ),
+            ],
           ),
+
+
           //chú thích
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 5),
@@ -287,7 +327,7 @@ class _EditQuestionUIState extends State<EditQuestionUI> {
                     Question oldQuestion = widget._question;
                     Question question = Question(id: oldQuestion.id,
                       idTheme: oldQuestion.idTheme,
-                      idLevel: oldQuestion.idLevel,
+                      idLevel: levelStrToInt(_selectedLevel),
                       a: _aAnswerController.text,
                     b: _bAnswerController.text,
                     c: _cAnswerController.text,
@@ -317,5 +357,15 @@ class _EditQuestionUIState extends State<EditQuestionUI> {
         ],
       ),
     );
+  }
+  String levelToString(int idLevel) {
+    if(idLevel==1) return "Dễ";
+    if(idLevel==2) return "TB";
+    if(idLevel==3) return "Khó";
+  }
+  int levelStrToInt(String levelStr) {
+    if(levelStr=="Dễ") return 1;
+    if(levelStr=="TB") return 2;
+    if(levelStr=="Khó") return 3;
   }
 }
