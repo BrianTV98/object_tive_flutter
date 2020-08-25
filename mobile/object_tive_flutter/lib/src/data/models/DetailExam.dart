@@ -1,7 +1,6 @@
-class Question {
+class DetailExam {
   int id;
-  int idTheme;
-  int idLevel;
+  int idExam;
   String question;
   String a;
   String b;
@@ -11,10 +10,9 @@ class Question {
   String explain;
   String lastUpdate;
 
-  Question(
+  DetailExam(
       {this.id,
-        this.idTheme,
-        this.idLevel,
+        this.idExam,
         this.question,
         this.a,
         this.b,
@@ -24,25 +22,23 @@ class Question {
         this.explain,
         this.lastUpdate});
 
-  Question.fromJson(Map<String, dynamic> json) {
+  DetailExam.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    idTheme = json['idTheme'];
-    idLevel = json['idLevel'];
-    question = json['question'];
-    a = json['a'];
-    b = json['b'];
-    c = json['c'];
-    d = json['d'];
-    correct = json['correct'];
-    explain = json['explain'];
-    lastUpdate = json['lastUpdate'];
+    idExam = json['idExam'];
+    question = json['question']??"";
+    a = json['a']??"";
+    b = json['b']??"";
+    c = json['c']??"";
+    d = json['d']??"";
+    correct = json['correct']??"";
+    explain = (json['explain']==null)?"":json['explain'];
+    lastUpdate = json['lastUpdate']??"";
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
-    data['idTheme'] = this.idTheme;
-    data['idLevel'] = this.idLevel;
+    data['idExam'] = this.idExam;
     data['question'] = this.question;
     data['a'] = this.a;
     data['b'] = this.b;

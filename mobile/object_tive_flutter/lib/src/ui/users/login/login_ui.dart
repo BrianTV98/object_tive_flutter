@@ -110,7 +110,6 @@ class _LoginScreenUIState extends State<LoginScreenUI> {
                               top: SizeManager().size_padding_default,
                               left: SizeManager().size_padding_default,
                               right: SizeManager().size_padding_default),
-
                           Padding(
                             padding: EdgeInsets.symmetric(horizontal: SizeManager().size_padding_default, vertical: SizeManager().size_padding_default),
                             child: GestureDetector(
@@ -161,7 +160,6 @@ class _LoginScreenUIState extends State<LoginScreenUI> {
                               ],
                             ),
                           )
-
                         ],
                       ),
                       if(snapshot.data==true)

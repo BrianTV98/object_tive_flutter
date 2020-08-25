@@ -8,9 +8,9 @@ import 'package:trac_nghiem_admin/data/model/Theme.dart';
 import 'package:trac_nghiem_admin/utils/base_bloc.dart';
 
 class HomeBloc extends BaseBloc{
-  StreamController<List<Subject>> _subjectController =  StreamController<List<Subject>>.broadcast();
-  StreamSink<List<Subject>> get subjectSink => _subjectController.sink;
-  Stream<List<Subject>> get subjectStream => _subjectController.stream;
+    StreamController<List<Subject>> _subjectController =  StreamController<List<Subject>>.broadcast();
+    StreamSink<List<Subject>> get subjectSink => _subjectController.sink;
+    Stream<List<Subject>> get subjectStream => _subjectController.stream;
 
   StreamController<List<Themes>> _themesController =  StreamController<List<Themes>>.broadcast();
   StreamSink<List<Themes>> get themeSink => _themesController.sink;

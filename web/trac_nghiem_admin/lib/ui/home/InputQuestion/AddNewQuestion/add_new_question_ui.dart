@@ -93,7 +93,7 @@ class _AddNewQuestionUIState extends State<AddNewQuestionUI> {
               child: TextFormField(
                 controller: _aAnswerController,
                 decoration: InputDecoration(
-                    labelText: "Đáp án A",
+                    labelText: "A",
                     focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: BorderSide(
@@ -123,7 +123,7 @@ class _AddNewQuestionUIState extends State<AddNewQuestionUI> {
               child: TextFormField(
                 controller: _bAnswerController,
                 decoration: InputDecoration(
-                    labelText: "Đáp án B",
+                    labelText: "B",
                     focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: BorderSide(
@@ -154,7 +154,7 @@ class _AddNewQuestionUIState extends State<AddNewQuestionUI> {
               child: TextFormField(
                 controller: _cAnswerController,
                 decoration: InputDecoration(
-                    labelText: "Đáp án C",
+                    labelText: "C",
                     focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: BorderSide(
@@ -185,7 +185,7 @@ class _AddNewQuestionUIState extends State<AddNewQuestionUI> {
               child: TextFormField(
                 controller: _dAnswerController,
                 decoration: InputDecoration(
-                    labelText: "Đáp án D",
+                    labelText: "D",
                     focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: BorderSide(
@@ -331,11 +331,14 @@ class _AddNewQuestionUIState extends State<AddNewQuestionUI> {
                 RaisedButton(
                   onPressed: () {
                     int check = checkValidate();
-
+                    int dokho;
+                    if(_selectedLevel==_listLevel[0]) dokho=1;
+                    if(_selectedLevel==_listLevel[1]) dokho=2;
+                    if(_selectedLevel==_listLevel[2]) dokho=3;
                     if(check==1){
                       Question question = Question(id: index,
                           idTheme: int.parse( widget.idSubject),
-                          idLevel: int.parse(widget.idLevel),
+                          idLevel: dokho,
                           a: _aAnswerController.text,
                           b: _bAnswerController.text,
                           c: _cAnswerController.text,
@@ -389,9 +392,6 @@ class _AddNewQuestionUIState extends State<AddNewQuestionUI> {
                   },
                   child: Text("Hủy"),
                 ),
-//                SizedBox(
-//                  width: 10,
-//                ),
               ],
             ),
           )

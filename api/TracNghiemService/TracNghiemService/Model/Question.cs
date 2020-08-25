@@ -10,6 +10,9 @@ namespace TracNghiemService.Model
         public int id { get; set; }
         public int idTheme { get; set; }
         public int idLevel { get; set; }
+
+        public String usernameSend{ get; set;}
+
         public String question { get; set; }
         public String A { get; set; }
         public String B { get; set; }

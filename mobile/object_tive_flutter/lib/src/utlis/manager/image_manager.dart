@@ -14,4 +14,6 @@ class ImageManager{
   final String iconLanguage='assets/images/language.png';
 
   final String iconUpdate='assets/images/update.png';
+
+  final String iconExplain='assets/images/explain.png';
 }

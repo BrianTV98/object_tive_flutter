@@ -20,6 +20,7 @@ import 'package:trac_nghiem_admin/data/model/Theme.dart';
 import 'package:trac_nghiem_admin/ui/home/EditQuestion/edit_question_ui.dart';
 import 'package:trac_nghiem_admin/ui/home/InputQuestion/AddNewQuestion/add_new_question_ui.dart';
 import 'package:trac_nghiem_admin/ui/home/InputQuestion/InputQuestionBloc.dart';
+import 'package:trac_nghiem_admin/ui/login/login_bloc.dart';
 import 'package:trac_nghiem_admin/ui/setting/Setting_UI.dart';
 import 'package:trac_nghiem_admin/utils/base_bloc.dart';
 
@@ -47,6 +48,8 @@ class _InputQuestionUIState extends State<InputQuestionUI> {
   List<int> _selectedFile;
   Uint8List _bytesData;
 
+  String _nameFile;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -60,11 +63,6 @@ class _InputQuestionUIState extends State<InputQuestionUI> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBarCustom(
-//        iconTheme: new IconThemeData(color: Colors.blue),
-//        centerTitle: true,
-//        backgroundColor: Colors.transparent,
-//        elevation: 0,
-//        brightness: Brightness.light,
       ),
       drawer: Drawer(
         child: SettingUI(),
@@ -226,7 +224,12 @@ class _InputQuestionUIState extends State<InputQuestionUI> {
                 ),
                 RaisedButton(
                   onPressed: (_selectedFile!=null)?loadExecl:null,
-                  child: Text("Upload từ file"),
+                  child: Row(
+                    children: [
+                      Text("Upload từ file"),
+                      Text(" ${_nameFile??""}", style: TextStyle(fontWeight: FontWeight.bold),)
+                    ],
+                  ),
                 ),
                 SizedBox(
                   width: 100,
@@ -365,7 +368,6 @@ class _InputQuestionUIState extends State<InputQuestionUI> {
                                               element.key, element.value),
                                     ),
                                   )
-
                                   ),
                                   DataCell(Container(
                                     width: 50,
@@ -382,8 +384,6 @@ class _InputQuestionUIState extends State<InputQuestionUI> {
                   ),
                 ),
               ),
-//            },
-//          ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -400,7 +400,6 @@ class _InputQuestionUIState extends State<InputQuestionUI> {
                         Icon(Icons.cloud_upload, color: Colors.white,)
                       ],
                     ),
-
                   ),
                   SizedBox(
                     width: 50,
@@ -435,16 +434,6 @@ class _InputQuestionUIState extends State<InputQuestionUI> {
         _listQuestion.addAll(result);
       }
     });
-
-//    if(result!=null){
-//      bool check= await _inputQuestionBloc.updateQuestion(result);
-//      if(check==true){
-//        _inputQuestionBloc.getListQuestion(_selectedSubjectId, _selectedThemeId);
-//        Get.snackbar("afsdfais", "Update thanh cong");
-//      }
-//      else  Get.snackbar("afsdfais", "Update thất bại");
-//
-//    }
   }
 
   Future showInfoDialog() async {
@@ -485,14 +474,9 @@ class _InputQuestionUIState extends State<InputQuestionUI> {
         }
     );
     if (check == 1) {
-//      bool check2= await _homeBloc.deleteQuestion(idQuestion.toString());
       setState(() {
         _listQuestion.removeWhere((element) => element.id == idQuestion);
       });
-
-//      if(check2==true) Get.snackbar("Thông báo", "Bạn đã xóa thành công!");
-//      else Get.snackbar("Thông báo", "Xóa thất bại!");
-//      _homeBloc.getListQuestion(_selectedSubjectId, _selectedThemeId);
     }
   }
 
@@ -501,7 +485,6 @@ class _InputQuestionUIState extends State<InputQuestionUI> {
         context: context,
         builder: (BuildContext context) {
           return EditQuestionUI(question);
-//          return AddNewQuestionUI(12,"ádfas","ádfasf");
         }
     );
 
@@ -510,35 +493,14 @@ class _InputQuestionUIState extends State<InputQuestionUI> {
         _listQuestion.replaceRange(indexQuestion, indexQuestion + 1,
             new List<Question>()..add(result));
       });
-
-//      if(check==true){
-//        _homeBloc.getListQuestion(_selectedSubjectId, _selectedThemeId);
-//        Get.snackbar("Thông báo", "Chỉnh sửa thanh cong");
-//      }
-//      else
-//        Get.snackbar("afsdfais", "Update thất bại");
-
     }
   }
-
-//  List<File> _files = [];
-//
-//  void _pickFiles() async {
-////    _files = await FilePicker.getMultiFile() ?? [];
-//    _files = (await FilePicker.getMultiFile(
-//      type: FileType.custom,
-//      allowedExtensions: ['xlsx'],
-//    )).cast<File>();
-//    setState(() {});
-//  }
 
 
 
   Future loadExecl() async {
 
       var excel = ex.Excel.decodeBytes(_selectedFile);
-
-      print(_selectedFile);
       int i = 0;
       List<dynamic> keys = new List<dynamic>();
       List<Map<String, dynamic>> json = new List<Map<String, dynamic>>();
@@ -546,9 +508,6 @@ class _InputQuestionUIState extends State<InputQuestionUI> {
         for (var row in excel.tables[table].rows) {
           if (i == 0) {
             List<String> tmpList = row.map((s) => s as String).toList();
-            tmpList.forEach((element) {
-              print(element);
-            });
 
             keys = tmpList;
             i++;
@@ -557,10 +516,8 @@ class _InputQuestionUIState extends State<InputQuestionUI> {
             int j = 0;
             String tk = '';
             for (var key in keys) {
-//              tk = "\u201C" + key + "\u201D";
               tk=key;
               temp[tk] = (row[j].runtimeType == String)
-//                  ? "\u201C" + row[j].toString() + "\u201D"
                     ? row[j].toString()
                   : row[j];
               j++;
@@ -569,8 +526,6 @@ class _InputQuestionUIState extends State<InputQuestionUI> {
           }
         }
       }
-      print(json.length);
-      String fullJson = json.toString().substring(1, json.toString().length - 1);
 
       // xu ly load file
       List<Question> question = List<Question>();
@@ -581,15 +536,15 @@ class _InputQuestionUIState extends State<InputQuestionUI> {
         Question tmp=Question.fromJson(element);
         // xu ly trung id
         tmp.id= index++;
+        tmp.usernameSend =userName;
         tmp.idTheme=int.parse(_selectedThemeId);
         question.add(tmp);
       });
-
       setState(() {
         _listQuestion.addAll(question);
       });
 
-      return fullJson;
+
 
   }
 
@@ -599,11 +554,15 @@ class _InputQuestionUIState extends State<InputQuestionUI> {
     html.InputElement uploadInput = html.FileUploadInputElement();
     uploadInput.multiple = true;
     uploadInput.draggable = true;
+    uploadInput.accept = '.xlsx';
     uploadInput.click();
 
     uploadInput.onChange.listen((event) {
       final files= uploadInput.files;
       final file = files[0];
+      setState(() {
+        _nameFile =file.name;
+      });
       final reader = new html.FileReader();
       reader.onLoadEnd.listen((e) {
         _handleResult(reader.result);
@@ -644,6 +603,7 @@ class _InputQuestionUIState extends State<InputQuestionUI> {
     if(idLevel==2) return "TB";
     if(idLevel==3) return "Khó";
   }
+
 }
 
 

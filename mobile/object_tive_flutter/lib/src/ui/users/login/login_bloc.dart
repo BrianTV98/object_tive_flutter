@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:get/get.dart';
 import 'package:object_tive_test/src/data/local/share_pref.dart';
+import 'package:object_tive_test/src/data/models/User.dart';
 import 'package:object_tive_test/src/data/models/result_respone.dart';
 import 'package:object_tive_test/src/data/remote/respone/app_respone.dart';
 import 'package:object_tive_test/src/ui/home/home_ui.dart';
@@ -20,10 +21,16 @@ class LoginBloc extends BaseBloc{
     isLoadingSink.add(true);
 
     if(checkValidation(username, password)){
-      bool result =  await AppResponse().login(username, password);
-      writeLocalDate(username);
-      if(result) Get.offAllNamed(HomeUI.routName);
-      else Get.snackbar("Lỗi", "Thông tin đăng nhập không chính xác");
+      User user =  await AppResponse().login(username, password);
+      if(user==null) Get.snackbar("Lỗi", "Thông tin đăng nhập không chính xác");
+      else{
+        if(user.isAdmin==false){
+          writeLocalDate(username);
+          Get.offAllNamed(HomeUI.routName);
+        }
+        else  Get.snackbar("Lỗi", "Bạn không có quyền đăng nhập vào đây");
+      }
+
     }
     else Get.snackbar("Lỗi", "Tên đăng nhập hoặc mật khẩu không được để trống");
     isLoadingSink.add(false);

@@ -20,5 +20,9 @@ namespace TracNghiemService.IService
 
         public List<Question> insertQuestion(List<Question> questions);
 
+        public List<DetailExam> getExam(int idSubject, String idUser);
+
+        public List<Exam> updateExam(List<Exam> exams);
+        public List<ReviewExam> reviewExam(int idSubject, string userName);
     }
 }

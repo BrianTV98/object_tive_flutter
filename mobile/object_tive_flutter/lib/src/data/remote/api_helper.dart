@@ -86,6 +86,28 @@ class HttpRequest {
     }
   }
 
+  Future<String> postCustomAsync(String url, List<Map<String, dynamic>> param,
+      {Map<String, dynamic> headers}) async {
+
+    try {
+//      _options =
+//          buildCacheOptions(Duration(days: 7), maxStale: Duration(days: 10));
+      if (headers != null) _options.headers.addAll(headers);
+      String jso = jsonEncode(param);
+      Response response = await _dio.post(url, data: jso);
+      if (response.statusCode == 200) {
+        //      String json = Utf8Decoder().convert(response.bodyBytes);
+        return response.data;
+      } else {
+        return null;
+      }
+    } on DioError catch (e) {
+//      AppCenter.trackEventAsync(
+//          'postAsync', <String, String>{'url': url, 'catch': e.toString()});
+      return null;
+    }
+  }
+
   Future<String> postUploadFile(String url,
       {List<File> files, File file}) async {
     try {

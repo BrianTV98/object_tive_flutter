@@ -1,9 +1,18 @@
 
 
 import 'package:get/get.dart';
+import 'package:object_tive_test/src/data/models/ReviewExam.dart';
 import 'package:object_tive_test/src/loading_page.dart';
+import 'package:object_tive_test/src/ui/chonchudehoc/ChonChuDeHocBloc.dart';
+import 'package:object_tive_test/src/ui/chonchudehoc/ChonChuDeHocUI.dart';
+import 'package:object_tive_test/src/ui/chucnang/ChucNangBloc.dart';
+import 'package:object_tive_test/src/ui/chucnang/ChucNangUI.dart';
+import 'package:object_tive_test/src/ui/exam/ExamBloc.dart';
+import 'package:object_tive_test/src/ui/exam/ExamUI.dart';
 import 'package:object_tive_test/src/ui/home/home_bloc.dart';
 import 'package:object_tive_test/src/ui/home/home_ui.dart';
+import 'package:object_tive_test/src/ui/review/ReviewExamBloc.dart';
+import 'package:object_tive_test/src/ui/review/ReviewExamUI.dart';
 import 'package:object_tive_test/src/ui/users/forgot/forgot_password_bloc.dart';
 import 'package:object_tive_test/src/ui/users/forgot/forgot_password_ui.dart';
 import 'package:object_tive_test/src/ui/users/login/login_bloc.dart';
@@ -34,6 +43,22 @@ class RouterManager {
       ..add(GetPage(
           name: LoadingPage.routerName,
           page: ()=>LoadingPage()
+      ))
+      ..add(GetPage(
+          name: ExamUI.routerName,
+          page: ()=>BlocProvider(bloc: ExamBloc(),child: ExamUI(),)
+      ))
+      ..add(GetPage(
+          name: ChucNangUI.routerName,
+          page: ()=>BlocProvider(bloc: ChucNangBloc(),child: ChucNangUI(),)
+      ))
+      ..add(GetPage(
+          name: ReviewExamUI.routerName,
+          page: ()=>BlocProvider(bloc: ReviewExamBloc(),child: ReviewExamUI(),)
+      ))
+      ..add(GetPage(
+          name: ChonChuDeHocUI.routerName,
+          page: ()=>BlocProvider(bloc: ChonChuDeHocBloc(),child: ChonChuDeHocUI(),)
       ))
           ////////////////////////////////////////////////////
         ;

@@ -6,11 +6,15 @@ import 'package:trac_nghiem_admin/data/model/Subject.dart';
 import 'package:trac_nghiem_admin/data/model/Theme.dart';
 import 'package:trac_nghiem_admin/ui/home/EditQuestion/edit_question_ui.dart';
 import 'package:trac_nghiem_admin/ui/home/home_bloc.dart';
+import 'package:trac_nghiem_admin/ui/login/login_bloc.dart';
+import 'package:trac_nghiem_admin/ui/login/login_screen.dart';
 import 'package:trac_nghiem_admin/ui/setting/Setting_UI.dart';
 import 'package:trac_nghiem_admin/utils/base_bloc.dart';
 
 class HomeUI extends StatefulWidget {
   static String routName = "/HomeUI";
+
+
 
   @override
   _HomeUIState createState() => _HomeUIState();
@@ -31,7 +35,9 @@ class _HomeUIState extends State<HomeUI> {
   @override
   void initState() {
     // TODO: implement initState
+
     _homeBloc = BlocProvider.of<HomeBloc>(context);
+    if(userName ==null) Get.offAllNamed(LoginScreenUI.routName);
     _homeBloc.getListSubject();
     super.initState();
   }
@@ -262,34 +268,32 @@ class _HomeUIState extends State<HomeUI> {
                       )
                     ],
                     rows:
-                        _listQuestion
+                        _listQuestion.asMap().entries
                             .map(
                               ((element) => DataRow(
                                     cells: <DataCell>[
                                       DataCell(
-                                          Text(element?.id.toString() ?? "")),
+                                          Text(element?.key.toString() ?? "")),
                                       //Extracting from Map element the value
                                       DataCell(Container(
                                           width: 400,
                                           child:
-                                              Text(element?.question ?? ""))),
-                                      DataCell(Text(element?.a ?? "")),
-                                      DataCell(Text(element?.b ?? "")),
-                                      DataCell(Text(element?.c ?? "")),
-                                      DataCell(Text(element?.d ?? "")),
-                                      DataCell(Text(element?.correct ?? "")),
-                                      DataCell(Text(element?.explain ?? "")),
+                                              Text(element.value.question ?? ""))),
+                                      DataCell(Text(element.value.a ?? "")),
+                                      DataCell(Text(element.value.b ?? "")),
+                                      DataCell(Text(element.value.c ?? "")),
+                                      DataCell(Text(element.value.d ?? "")),
+                                      DataCell(Text(element.value.correct ?? "")),
+                                      DataCell(Text(element.value.explain ?? "")),
                                       DataCell(Container(
                                         width: 50,
-                                          child: Text(levelToString(element.idLevel) ?? ""))),
+                                          child: Text(levelToString(element.value.idLevel) ?? ""))),
                                       DataCell(IconButton(
                                         icon: Icon(Icons.edit, color: Colors.blue,),
-                                        onPressed: ()=>showEditDialog(element),
-                                      )
-
-                                      ),
+                                        onPressed: ()=>showEditDialog(element.value),
+                                      )),
                                       DataCell(IconButton(
-                                          onPressed: ()=>showYesNoDialog(element.id),
+                                          onPressed: ()=>showYesNoDialog(element.value),
                                           icon: Icon(Icons.delete, color: Colors.blue,))),
                                     ],
                                   )),
@@ -305,7 +309,14 @@ class _HomeUIState extends State<HomeUI> {
     );
   }
 
-  Future showYesNoDialog(int idQuestion) async{
+  Future showYesNoDialog(Question question) async{
+
+    String username = userName;
+    if(username !=question.usernameSend.trim()){
+      Get.dialog(ShowDialogNotPermisstion());
+      return;
+    }
+
     int check = await showDialog(
         context: context,
         builder: (BuildContext context){
@@ -326,7 +337,7 @@ class _HomeUIState extends State<HomeUI> {
         }
     );
     if(check==1) {
-      bool check2= await _homeBloc.deleteQuestion(idQuestion.toString());
+      bool check2= await _homeBloc.deleteQuestion(question.id.toString());
       if(check2==true) Get.snackbar("Thông báo", "Bạn đã xóa thành công!");
       else Get.snackbar("Thông báo", "Xóa thất bại!");
       _homeBloc.getListQuestion(_selectedSubjectId, _selectedThemeId);
@@ -334,11 +345,17 @@ class _HomeUIState extends State<HomeUI> {
   }
 
   Future showEditDialog(Question question) async{
+    String username = userName;
+    if(username !=question.usernameSend.trim()){
+        Get.dialog(ShowDialogNotPermisstion());
+        return;
+    }
+
     var result = await showDialog(
         context: context,
-      builder: (BuildContext context){
+        builder: (BuildContext context){
           return EditQuestionUI(question);
-      }
+        }
     );
 
     if(result!=null){
@@ -348,7 +365,6 @@ class _HomeUIState extends State<HomeUI> {
         Get.snackbar("afsdfais", "Update thanh cong");
       }
       else  Get.snackbar("afsdfais", "Update thất bại");
-
     }
   }
 
@@ -356,5 +372,53 @@ class _HomeUIState extends State<HomeUI> {
     if(idLevel==1) return "Dễ";
     if(idLevel==2) return "TB";
     if(idLevel==3) return "Khó";
+  }
+
+}
+class ShowDialogNotPermisstion extends StatefulWidget {
+  @override
+  _ShowDialogNotPermisstionState createState() => _ShowDialogNotPermisstionState();
+}
+
+class _ShowDialogNotPermisstionState extends State<ShowDialogNotPermisstion> {
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      child:Container(
+        width: 120,
+        height: 140,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: 8,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 16),
+              child: Text("Thông báo", style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),),
+            ),
+            SizedBox(
+              height: 16,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Flexible(child: Text("Bạn không có quyền chỉnh sửa câu hỏi này.")),
+            ),
+            SizedBox(
+              height: 16,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                RaisedButton(
+                  onPressed: ()=>Get.back(),
+                  child: Text("OK"),
+                ),
+              ],
+            )
+          ],
+        ),
+      ),
+    );
   }
 }

@@ -9,10 +9,7 @@ namespace TracNghiemService.IService
     public interface ISubjectService
     {
         public List<Subject> getListSubject();
-
         public List<Theme> getListThemeFollowSubject(int idSubject);
-
-
 
     }
 }

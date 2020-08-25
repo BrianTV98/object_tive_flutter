@@ -70,8 +70,8 @@ class InputQuestionBloc extends BaseBloc{
   Future<bool> insertQuestion(List<Question> listQuestion)async {
     List<Question> result =  await AppResponse().insertQuestion(listQuestion);
     if(result==null) {
-      Get.snackbar("Thông báo", "Upload Thành Công");
-      return true;
+      Get.snackbar("Thông báo", "Upload load thất bại");
+      return false;
     }
     if(result.length==0){
       Get.snackbar("Thông báo", "Upload Thành Công");
@@ -79,7 +79,7 @@ class InputQuestionBloc extends BaseBloc{
     }
 
     Get.snackbar("Thông báo", "Một vài câu hỏi đã không thể upload ..");
-
+    return false;
   }
 
 }

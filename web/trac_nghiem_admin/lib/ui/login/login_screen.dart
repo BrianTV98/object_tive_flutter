@@ -4,8 +4,10 @@ import 'package:trac_nghiem_admin/manager/size_manager.dart';
 import 'package:trac_nghiem_admin/ui/login/login_bloc.dart';
 import 'package:trac_nghiem_admin/utils/base_bloc.dart';
 
+
 class LoginScreenUI extends StatefulWidget {
   static String routName = "/LoginScreenUI";
+
 
   @override
   _LoginScreenUIState createState() => _LoginScreenUIState();
@@ -42,8 +44,7 @@ class _LoginScreenUIState extends State<LoginScreenUI> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Image.network(
-                  "https://a.deviantart.net/avatars-big/m/e/melodoodle.jpg?4"),
+              Image.asset("assets/images/icon_app.png", height: 100, width: 100),
 
               SizedBox(
                 height: 16,

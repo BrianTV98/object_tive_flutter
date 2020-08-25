@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trac_nghiem_admin/data/model/Question.dart';
+import 'package:trac_nghiem_admin/ui/login/login_bloc.dart';
 
 class EditQuestionUI extends StatefulWidget {
   static const String routerName = "/EditQuestionUI";
@@ -95,7 +96,7 @@ class _EditQuestionUIState extends State<EditQuestionUI> {
               child: TextFormField(
                 controller: _aAnswerController,
                 decoration: InputDecoration(
-                    labelText: "Đáp án A",
+                    labelText: "A",
                     focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: BorderSide(
@@ -125,7 +126,7 @@ class _EditQuestionUIState extends State<EditQuestionUI> {
               child: TextFormField(
                 controller: _bAnswerController,
                 decoration: InputDecoration(
-                    labelText: "Đáp án B",
+                    labelText: "B",
                     focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: BorderSide(
@@ -156,7 +157,7 @@ class _EditQuestionUIState extends State<EditQuestionUI> {
               child: TextFormField(
                 controller: _cAnswerController,
                 decoration: InputDecoration(
-                    labelText: "Đáp án C",
+                    labelText: "C",
                     focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: BorderSide(
@@ -187,7 +188,7 @@ class _EditQuestionUIState extends State<EditQuestionUI> {
               child: TextFormField(
                 controller: _dAnswerController,
                 decoration: InputDecoration(
-                    labelText: "Đáp án D",
+                    labelText: "D",
                     focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: BorderSide(
@@ -327,6 +328,7 @@ class _EditQuestionUIState extends State<EditQuestionUI> {
                     Question oldQuestion = widget._question;
                     Question question = Question(id: oldQuestion.id,
                       idTheme: oldQuestion.idTheme,
+                      usernameSend: userName,
                       idLevel: levelStrToInt(_selectedLevel),
                       a: _aAnswerController.text,
                     b: _bAnswerController.text,

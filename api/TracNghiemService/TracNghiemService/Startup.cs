@@ -20,7 +20,7 @@ namespace TracNghiemService
 {
     public class Startup
     {
-        readonly string MyAllowSpecificOrigins = "http://localhost:64288";
+        //readonly string MyAllowSpecificOrigins = "http://localhost:64288";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -61,7 +61,8 @@ namespace TracNghiemService
             //app.UseCors(MyAllowSpecificOrigins);
             app.UseCors(builder =>
             {
-                builder.WithOrigins("http://localhost:65385");
+                //builder.WithOrigins("http://localhost:54874");
+                builder.AllowAnyOrigin();
                 builder.AllowAnyMethod();
                 builder.AllowAnyHeader();
             });

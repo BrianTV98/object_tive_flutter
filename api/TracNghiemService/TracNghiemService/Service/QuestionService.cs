@@ -35,6 +35,32 @@ namespace TracNghiemService.Service
             return false;
         }
 
+        public List<DetailExam> getExam(int idSubject,String idUser)
+        {
+            try
+            {
+                using (System.Data.IDbConnection con = new SqlConnection(Global.ConnectionString))
+                {
+
+                    if (con.State == ConnectionState.Closed) con.Open();
+
+                    var check = con.Query<DetailExam>("SP_CREATE_EXAM", param: new { idSubject,idUser }, commandType: CommandType.StoredProcedure);
+                    int countList = check.ToList().Count;
+                    if (countList == 30)
+                    {
+                        return check.ToList();
+                    }
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return null;
+        }
+
         public List<Question> getListQuestionFollowIdSubject(string idSubject)
         {
             try
@@ -134,6 +160,47 @@ namespace TracNghiemService.Service
             return null;
         }
 
+        class ResultIdExam
+        {
+            public int IdExam { get; set; }
+        }
+
+        public List<Exam> updateExam(List<Exam> exams)
+        {
+            try
+            {
+                using (System.Data.IDbConnection con = new SqlConnection(Global.ConnectionString))
+                {
+
+                    if (con.State == ConnectionState.Closed) con.Open();
+
+      
+                    List<Exam> errExams = new List<Exam>();
+                    foreach (var item in exams)
+                    {
+                       
+                        try
+                        {    var check = con.Query<ResultRespone>("SP_UPDATE_EXAM", param: new {item.idExam,item.idQuestion, item.chooseAnswer }, commandType: CommandType.StoredProcedure);
+                            if (check.First<ResultRespone>().States == false) 
+                                errExams.Add(item);
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e.Message);
+                        }
+
+                    }
+
+                    return errExams;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return null;
+        }
+
         public Question updateQuestion(Question question)
         {
             try
@@ -146,6 +213,7 @@ namespace TracNghiemService.Service
                     var check = con.Query<Question>("SP_EditQuestion", param: question, commandType: CommandType.StoredProcedure);
 
                     return check.First<Question>();
+
                 }
             }
             catch (Exception ex)
@@ -154,6 +222,28 @@ namespace TracNghiemService.Service
             }
             return null;
 
+        }
+
+        public List<ReviewExam> reviewExam(int idSubject, string userName)
+        {
+            try
+            {
+                using (System.Data.IDbConnection con = new SqlConnection(Global.ConnectionString))
+                {
+
+                    if (con.State == ConnectionState.Closed) con.Open();
+
+                    var check = con.Query<ReviewExam>("GET_LAST_EXAM", param: new { idSubject , userName }, commandType: CommandType.StoredProcedure);
+
+                    return check.ToList();
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return null;
         }
     }
 }
