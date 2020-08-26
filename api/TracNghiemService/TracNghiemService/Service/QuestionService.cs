@@ -245,5 +245,27 @@ namespace TracNghiemService.Service
             }
             return null;
         }
+
+        public List<LearningProcess> learningProcess(int idSubject, string userName)
+        {
+            try
+            {
+                using (System.Data.IDbConnection con = new SqlConnection(Global.ConnectionString))
+                {
+
+                    if (con.State == ConnectionState.Closed) con.Open();
+
+                    var check = con.Query<LearningProcess>("SP_GET_QUESTION_LEARNING", param: new { idSubject, userName }, commandType: CommandType.StoredProcedure);
+
+                    return check.ToList();
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return null;
+        }
     }
 }

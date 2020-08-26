@@ -130,6 +130,20 @@ namespace TracNghiemService.Controllers
                 return Ok(data);
             }
             return NoContent();
+
+        }
+
+        [HttpGet("learningProcess/{idSubject}/{userName}")]
+        public ActionResult<List<Question>> learningProcess(int idSubject, string userName)
+        {
+
+            var data = _questionService.learningProcess(idSubject, userName);
+            if (data != null)
+            {
+                return Ok(data);
+            }
+            return NoContent();
+
         }
 
     }
