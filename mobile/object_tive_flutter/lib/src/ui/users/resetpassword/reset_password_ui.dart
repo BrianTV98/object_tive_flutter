@@ -4,7 +4,7 @@ import 'package:object_tive_test/src/utlis/manager/size_manager.dart';
 import 'package:object_tive_test/src/utlis/widget/app_bar.dart';
 
 class ResetPasswordUi extends StatefulWidget {
-  static String routName ="/RegisterUI";
+  static String routName ="/ResetPasswordUi";
   @override
   _ResetPasswordUIState createState() => _ResetPasswordUIState();
 }

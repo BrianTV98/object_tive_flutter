@@ -23,30 +23,55 @@ class _ChucNangUIState extends State<ChucNangUI> {
           children: [
             SizedBox(
               width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height/5,
+              height: MediaQuery.of(context).size.height/10,
             ),
-            RaisedButton(
-              onPressed: () => Get.toNamed(ChonChuDeHocUI.routerName, arguments:  widget.subject.id),
-              color: Colors.red,
-              child:  Text("HỌC", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold), ),
-            ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height/5,
-            ),
-            RaisedButton(
-              onPressed: ()=> Get.toNamed(ExamUI.routerName, arguments: widget.subject),
-              color: Colors.red,
-              child: Text("THI", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
+            GestureDetector(
+              onTap: () => Get.toNamed(ChonChuDeHocUI.routerName, arguments:  widget.subject.id),
+              child:  Container(
+                  height: 100,
+                  width: 100,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50),
+                    border: Border.all(color: Colors.blue, width: 2)
+                  ),
+                  child: Center(child: Text("HỌC", style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold), ))
+              ),
             ),
             SizedBox(
               width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height/5,
+              height: MediaQuery.of(context).size.height/6,
             ),
-            RaisedButton(
-              onPressed: ()=>Get.toNamed(ReviewExamUI.routerName,arguments: widget.subject.id),
-              color: Colors.red,
-              child: Text("XEM LẠI BÀI THI", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
+
+            GestureDetector(
+              onTap: () => Get.toNamed(ExamUI.routerName, arguments: widget.subject),
+              child:  Container(
+                  height: 100,
+                  width: 100,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50),
+                      border: Border.all(color: Colors.blue, width: 2)
+                  ),
+                  child: Center(child: Text("THI", style: TextStyle(color: Colors.blue,fontWeight: FontWeight.bold),))
+              ),
+            ),
+
+            SizedBox(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height/6,
+            ),
+
+
+            GestureDetector(
+              onTap: () => Get.toNamed(ReviewExamUI.routerName,arguments: widget.subject.id),
+              child:  Container(
+                  height: 100,
+                  width: 100,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50),
+                      border: Border.all(color: Colors.blue, width: 2)
+                  ),
+                  child: Center(child: Text("XEM LẠI BÀI THI", style: TextStyle(color: Colors.blue,fontWeight: FontWeight.bold),textAlign: TextAlign.center,))
+              ),
             ),
           ],
         ),

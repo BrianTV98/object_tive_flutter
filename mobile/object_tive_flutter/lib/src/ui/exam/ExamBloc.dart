@@ -11,6 +11,7 @@ import 'package:object_tive_test/src/utlis/manager/BaseBloc.dart';
 import 'package:object_tive_test/src/utlis/manager/prerence_namespace.dart';
 
 class ExamBloc extends BaseBloc{
+
   StreamController<List<DetailExam>> _questionController =  StreamController<List<DetailExam>>.broadcast();
   StreamSink<List<DetailExam>> get questionSink => _questionController.sink;
   Stream<List<DetailExam>> get questionStream => _questionController.stream;

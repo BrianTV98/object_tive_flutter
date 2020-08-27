@@ -31,7 +31,7 @@ class _SettingUIState extends State<SettingUI> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Image.asset(ImageManager().iconAvata, height: SizeManager().siz_icon_default*1.2, width: SizeManager().siz_icon_default*1.2,),
+                          Image.asset("assets/images/icon_my_avata.jpg", height: SizeManager().siz_icon_default*1.2, width: SizeManager().siz_icon_default*1.2,),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -140,4 +140,6 @@ class _SettingUIState extends State<SettingUI> {
     writeDataLocal();
     Get.offAllNamed(LoginScreenUI.routName);
   }
+
 }
+

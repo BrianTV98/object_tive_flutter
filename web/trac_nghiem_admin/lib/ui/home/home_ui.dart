@@ -234,10 +234,10 @@ class _HomeUIState extends State<HomeUI> {
                   child: DataTable(
                     columns: [
                       DataColumn(
-                        label: Text("id"),
+                        label: Text("STT"),
                       ),
                       DataColumn(
-                        label: Text("Question"),
+                        label: Text("Câu hỏi"),
                       ),
                       DataColumn(
                         label: Text("A"),
@@ -252,10 +252,10 @@ class _HomeUIState extends State<HomeUI> {
                         label: Text("D"),
                       ),
                       DataColumn(
-                        label: Text("correct"),
+                        label: Text("Đ.A"),
                       ),
                       DataColumn(
-                        label: Text("explain"),
+                        label: Text("Chú giải"),
                       ),
                       DataColumn(
                         label: Text("Mức độ"),

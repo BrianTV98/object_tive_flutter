@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:object_tive_test/src/data/models/Subject.dart';
@@ -19,6 +20,10 @@ class HomeUI extends StatefulWidget {
 class _HomeUIState extends State<HomeUI> {
   String imagUrl =
       "https://png.pngtree.com/element_our/20190530/ourlarge/pngtree-520-couple-avatar-boy-avatar-little-dinosaur-cartoon-cute-image_1263411.jpg";
+
+  String imageFlutter ="assets/images/flutter.png";
+  String imageJava ="assets/images/java.png";
+  String imageToanCaoCap="assets/images/math.png";
 
   HomeBloc _homeBloc;
   List<Subject> _listSubject = List<Subject>();
@@ -56,13 +61,26 @@ class _HomeUIState extends State<HomeUI> {
                         onTap: ()=> Get.toNamed(ChucNangUI.routerName, arguments: _listSubject[index]),
                         behavior: HitTestBehavior.translucent,
                         child: Container(
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(75),
-                            clipBehavior: Clip.hardEdge,
-                            child: Image.network(imagUrl),
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(75),
+                              clipBehavior: Clip.hardEdge,
+                              child: Column(
+                                children: [
+                                  if(index==0 )Image.asset(imageFlutter,height: 140,width: 140, fit: BoxFit.cover,),
+                                  if(index==1 )Image.asset(imageJava,height: 140,width: 140, fit: BoxFit.cover,),
+                                  if(index==2 )Image.asset(imageToanCaoCap,height: 145,width: 145, fit: BoxFit.cover,),
+                                ],
+                              )
+                            ),
                           ),
                           height: 150,
                           width: 150,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(75),
+                            border:  Border.all(width: 1, color: Colors.blue)
+                          ),
                         ),
                       ),
                       Text(_listSubject[index].name)

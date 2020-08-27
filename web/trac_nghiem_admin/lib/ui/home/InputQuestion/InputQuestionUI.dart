@@ -406,6 +406,11 @@ class _InputQuestionUIState extends State<InputQuestionUI> {
                   )
                 ],
               )
+            ],
+            
+            if(_listQuestion.length==0)...[
+              SizedBox(height: 100,),
+              Image.asset('assets/images/add_question.jpg', height: 300,)
             ]
           ],
         ),

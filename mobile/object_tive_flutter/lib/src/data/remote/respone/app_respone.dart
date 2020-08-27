@@ -6,6 +6,7 @@ import 'package:object_tive_test/src/data/local/app_database.dart';
 import 'package:object_tive_test/src/data/local/dao/entity/User.dart';
 import 'package:object_tive_test/src/data/models/DetailExam.dart';
 import 'package:object_tive_test/src/data/models/Exam.dart';
+import 'package:object_tive_test/src/data/models/LearningProcess.dart';
 import 'package:object_tive_test/src/data/models/Question.dart';
 import 'package:object_tive_test/src/data/models/ReviewExam.dart';
 import 'package:object_tive_test/src/data/models/Subject.dart';
@@ -144,6 +145,25 @@ class AppResponse{
       if(data!=null){
         data.forEach((element) {
           result.add(Themes.fromJson(element));
+        });
+      }
+      return result;
+    }
+    else
+      return null;
+  }
+
+  Future<List<LearningProcess>>getListLearningProcess(int idThemes,String username) async{
+    String url = baseUrl +"api/question/learningProcess/$idThemes/$username";
+
+
+    String jsons = await HttpRequest.instance.getAsync(url);
+    if (jsons != null) {
+      var data = jsonDecode(jsons) as List;
+      List<LearningProcess> result =List<LearningProcess>();
+      if(data!=null){
+        data.forEach((element) {
+          result.add(LearningProcess.fromJson(element));
         });
       }
       return result;
