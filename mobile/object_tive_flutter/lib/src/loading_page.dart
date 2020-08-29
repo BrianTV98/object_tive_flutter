@@ -40,7 +40,6 @@ class _LoadingPageState extends State<LoadingPage> {
       Get.offAllNamed(LoginScreenUI.routName);
     } else {
       Get.offAllNamed(HomeUI.routName);
-
     }
   }
 

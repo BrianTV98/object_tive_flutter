@@ -71,6 +71,7 @@ class _HomeUIState extends State<HomeUI> {
                                   if(index==0 )Image.asset(imageFlutter,height: 140,width: 140, fit: BoxFit.cover,),
                                   if(index==1 )Image.asset(imageJava,height: 140,width: 140, fit: BoxFit.cover,),
                                   if(index==2 )Image.asset(imageToanCaoCap,height: 145,width: 145, fit: BoxFit.cover,),
+                                  if(index>2) Image.network(imagUrl, height: 145, width: 145, fit: BoxFit.cover,),
                                 ],
                               )
                             ),

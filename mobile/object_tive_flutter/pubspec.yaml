@@ -40,6 +40,7 @@ dependencies:
   #check internet
   connectivity: ^0.4.9
 
+
   # check quyền
   permission_handler: ^5.0.1+1
   # firebase

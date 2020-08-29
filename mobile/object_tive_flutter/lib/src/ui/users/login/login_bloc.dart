@@ -25,7 +25,7 @@ class LoginBloc extends BaseBloc{
       if(user==null) Get.snackbar("Lỗi", "Thông tin đăng nhập không chính xác");
       else{
         if(user.isAdmin==false){
-          writeLocalDate(username);
+          writeLocalDate(username,user.linkavata,user.email);
           Get.offAllNamed(HomeUI.routName);
         }
         else  Get.snackbar("Lỗi", "Bạn không có quyền đăng nhập vào đây");
@@ -49,13 +49,14 @@ class LoginBloc extends BaseBloc{
     super.dispose();
   }
 
-  void writeLocalDate( String  userName) {
+  void writeLocalDate( String  userName, String linkAvata, String gmail) {
     //isName
     //userName
 
     SharedPref.instance.setBool(NameSpace().isLogin, true);
     SharedPref.instance.setString(NameSpace().userName, userName);
-
+    SharedPref.instance.setString(NameSpace().linkAvata, linkAvata);
+    SharedPref.instance.setString(NameSpace().gmail, gmail);
   }
 
 }

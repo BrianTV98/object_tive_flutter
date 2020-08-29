@@ -46,21 +46,49 @@ class _ChonChuDeHocUIState extends State<ChonChuDeHocUI> {
                   return  ListView.builder(
                       itemCount:themes.length ,
                       itemBuilder: (context, index){
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 16),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              RaisedButton(
-                                  onPressed: ()=>Get.toNamed(HocUI.routerName,arguments: widget.idSubject),
-                                  child: Container(
-                                      child: Text(themes[index].name,style: TextStyle(color: Colors.white),),
-                                      width: MediaQuery.of(context).size.width-150,
-                                  ),
-                                  color: Colors.blue,
-                              )
-                            ],
-                          ),
+                        return Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 16),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  GestureDetector(
+                                      onTap: ()=>Get.toNamed(HocUI.routerName,arguments:{'idSubject' : widget.idSubject, 'idTheme':themes[index].id}),
+                                      behavior: HitTestBehavior.translucent,
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(50),
+                                          color: Colors.blue.withOpacity(0.7),
+                                        ),
+                                          height: 100,
+                                          child: Stack(
+                                            children: [
+                                              Center(child: Text(themes[index].name,style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),)),
+                                            ],
+                                          ),
+                                          width: 100,
+                                      ),
+
+                                  )
+                                ],
+                              ),
+                            ),
+                            Text("${themes[index].percent} %"),
+                            Container(
+                              height: 10,
+                              width: MediaQuery.of(context).size.width/2,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.all(Radius.circular(10)),
+                                child: LinearProgressIndicator(
+                                  value: themes[index].percent.toDouble()/100,
+                                  backgroundColor:  Color(0xffD6D6D6),
+                                  valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+                                ),
+                              ),
+                            )
+                          ],
                         );
                       }
                   );

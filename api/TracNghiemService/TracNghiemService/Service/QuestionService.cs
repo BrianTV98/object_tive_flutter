@@ -246,7 +246,7 @@ namespace TracNghiemService.Service
             return null;
         }
 
-        public List<LearningProcess> learningProcess(int idSubject, string userName)
+        public List<LearningProcess> learningProcess(int idSubject, int idTheme, string userName)
         {
             try
             {
@@ -255,7 +255,51 @@ namespace TracNghiemService.Service
 
                     if (con.State == ConnectionState.Closed) con.Open();
 
-                    var check = con.Query<LearningProcess>("SP_GET_QUESTION_LEARNING", param: new { idSubject, userName }, commandType: CommandType.StoredProcedure);
+                    var check = con.Query<LearningProcess>("SP_GET_QUESTION_LEARNING", param: new { idSubject,idTheme,userName }, commandType: CommandType.StoredProcedure);
+
+                    return check.ToList();
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return null;
+        }
+
+        public ResultRespone upDatelearningProcess(int idSubject, int idQuestion, string userName, string chooseAnswer)
+        {
+            try
+            {
+                using (System.Data.IDbConnection con = new SqlConnection(Global.ConnectionString))
+                {
+
+                    if (con.State == ConnectionState.Closed) con.Open();
+
+                    var check = con.Query<ResultRespone>("SP_UPDATE_LEARNINGPROCESS", param: new { idSubject, idQuestion, userName, chooseAnswer }, commandType: CommandType.StoredProcedure);
+
+                    return check.First<ResultRespone>();
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return null;
+        }
+
+        public List<Theme> getPercentTheme(int idSubject, string username)
+        {
+            try
+            {
+                using (System.Data.IDbConnection con = new SqlConnection(Global.ConnectionString))
+                {
+
+                    if (con.State == ConnectionState.Closed) con.Open();
+
+                    var check = con.Query<Theme>("GET_LEARNING_PERCENT_FOLLOW_THEMES", param: new { idSubject, username }, commandType: CommandType.StoredProcedure);
 
                     return check.ToList();
 

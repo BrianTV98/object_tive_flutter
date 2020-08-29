@@ -25,6 +25,10 @@ namespace TracNghiemService.IService
         public List<Exam> updateExam(List<Exam> exams);
         public List<ReviewExam> reviewExam(int idSubject, string userName);
 
-        public List<LearningProcess> learningProcess(int idSubject, string userName);
+        public List<LearningProcess> learningProcess(int idSubject,int idTheme, string userName);
+
+
+        public ResultRespone upDatelearningProcess(int idSubject, int idQuestion, string userName, string chooseAnswer);
+        public List<Theme> getPercentTheme(int idSubject, string username);
     }
 }

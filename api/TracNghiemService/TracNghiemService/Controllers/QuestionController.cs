@@ -133,17 +133,43 @@ namespace TracNghiemService.Controllers
 
         }
 
-        [HttpGet("learningProcess/{idSubject}/{userName}")]
-        public ActionResult<List<Question>> learningProcess(int idSubject, string userName)
+        [HttpGet("learningProcess/{idSubject}/{idTheme}/{userName}")]
+        public ActionResult<List<Question>> learningProcess(int idSubject,int idTheme, string userName)
         {
 
-            var data = _questionService.learningProcess(idSubject, userName);
+            var data = _questionService.learningProcess(idSubject, idTheme, userName);
             if (data != null)
             {
                 return Ok(data);
             }
             return NoContent();
 
+        }
+
+        [HttpGet("learningProcess/updateLearningProceess/{idSubject}/{idQuestion}/{username}/{chooseAnswer}")]
+        public ActionResult<List<Question>> updateLearningProcess(int idSubject,int idQuestion, string userName, string chooseAnswer)
+        {
+
+            var data = _questionService.upDatelearningProcess(idSubject, idQuestion, userName, chooseAnswer);
+            if (data != null)
+            {
+                return Ok(data);
+            }
+            return NoContent();
+
+        }
+
+
+        [HttpGet("getPercentTheme/{idSubject}/{username}")]
+        public ActionResult<List<Theme>> getPercentTheme(int idSubject, String username)
+        {
+
+            var data = _questionService.getPercentTheme(idSubject, username);
+            if (data != null)
+            {
+                return Ok(data);
+            }
+            return NoContent();
         }
     }
 }

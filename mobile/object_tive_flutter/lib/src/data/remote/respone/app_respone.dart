@@ -153,10 +153,8 @@ class AppResponse{
       return null;
   }
 
-  Future<List<LearningProcess>>getListLearningProcess(int idThemes,String username) async{
-    String url = baseUrl +"api/question/learningProcess/$idThemes/$username";
-
-
+  Future<List<LearningProcess>>getListLearningProcess(int idSubject, int idThemes,String username) async{
+    String url = baseUrl +"api/question/learningProcess/$idSubject/$idThemes/$username";
     String jsons = await HttpRequest.instance.getAsync(url);
     if (jsons != null) {
       var data = jsonDecode(jsons) as List;
@@ -164,6 +162,39 @@ class AppResponse{
       if(data!=null){
         data.forEach((element) {
           result.add(LearningProcess.fromJson(element));
+        });
+      }
+      return result;
+    }
+    else
+      return null;
+  }
+
+  Future<ResultResponse> updateLearningProcess(int idSubject, int idQuestion, String username, String chooseAnswer)async {
+    String url = baseUrl +"api/question/learningProcess/updateLearningProceess/$idSubject/$idQuestion/$username/$chooseAnswer";
+    String jsons = await HttpRequest.instance.getAsync(url);
+
+    ResultResponse result = ResultResponse();
+    if (jsons != null) {
+      var data = jsonDecode(jsons) ;
+      if(data!=null){
+          return ResultResponse.fromJson(data);
+      }
+      return null;
+    }
+    else
+      return null;
+  }
+
+  Future<List<Themes>> getListThemePercentLearning(int idSubject, String username)async {
+    String url = baseUrl +"api/question/getPercentTheme/$idSubject/$username";
+    String jsons = await HttpRequest.instance.getAsync(url);
+    if (jsons != null) {
+      var data = jsonDecode(jsons) as List;
+      List<Themes> result =List<Themes>();
+      if(data!=null){
+        data.forEach((element) {
+          result.add(Themes.fromJson(element));
         });
       }
       return result;

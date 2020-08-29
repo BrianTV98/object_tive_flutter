@@ -45,6 +45,12 @@ class _ReviewExamUIState extends State<ReviewExamUI> {
                   case ConnectionState.active:
                   case ConnectionState.done:
                     List<ReviewExam> _listQuestion = snapshot.data;
+                    if(_listQuestion.length==0) return Container(
+                        height: MediaQuery.of(context).size.height-56,
+                        width: MediaQuery.of(context).size.width,
+                        child: Center(child: Text("Bạn chưa có bài thi"),
+                        )
+                    );
                     return Column(
                       children: [
                         Container(
@@ -160,10 +166,7 @@ class _ReviewExamUIState extends State<ReviewExamUI> {
 }
 
 class ExplainDialog extends StatefulWidget {
-
   String explain;
-
-
   ExplainDialog(this.explain);
 
   @override

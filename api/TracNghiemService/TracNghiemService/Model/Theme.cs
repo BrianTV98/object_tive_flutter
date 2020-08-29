@@ -10,5 +10,7 @@ namespace TracNghiemService.Model
         public int id { get; set; }
 
         public string name { get; set; }
+
+        public int percent { get; set; }
     }
 }

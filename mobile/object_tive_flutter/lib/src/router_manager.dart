@@ -17,12 +17,18 @@ import 'package:object_tive_test/src/ui/review/ReviewExamBloc.dart';
 import 'package:object_tive_test/src/ui/review/ReviewExamUI.dart';
 import 'package:object_tive_test/src/ui/users/forgot/forgot_password_bloc.dart';
 import 'package:object_tive_test/src/ui/users/forgot/forgot_password_ui.dart';
+import 'package:object_tive_test/src/ui/users/infor/infor_bloc.dart';
+import 'package:object_tive_test/src/ui/users/infor/infor_ui.dart';
+import 'package:object_tive_test/src/ui/users/language/language_bloc.dart';
+import 'package:object_tive_test/src/ui/users/language/language_ui.dart';
 import 'package:object_tive_test/src/ui/users/login/login_bloc.dart';
 import 'package:object_tive_test/src/ui/users/login/login_ui.dart';
 import 'package:object_tive_test/src/ui/users/register/register_bloc.dart';
 import 'package:object_tive_test/src/ui/users/register/register_ui.dart';
 import 'package:object_tive_test/src/ui/users/resetpassword/reset_password_bloc.dart';
 import 'package:object_tive_test/src/ui/users/resetpassword/reset_password_ui.dart';
+import 'package:object_tive_test/src/ui/users/update/update_bloc.dart';
+import 'package:object_tive_test/src/ui/users/update/update_ui.dart';
 import 'package:object_tive_test/src/utlis/manager/BaseBloc.dart';
 
 class RouterManager {
@@ -75,6 +81,18 @@ class RouterManager {
       ..add(GetPage(
           name: ResetPasswordUi.routName,
           page: ()=>BlocProvider(bloc: ResetPasswordBloc(),child: ResetPasswordUi(),)
+      ))
+      ..add(GetPage(
+          name: InfoUI.routeName,
+          page: ()=>BlocProvider(bloc: InforBloc(),child: InfoUI(),)
+      ))
+      ..add(GetPage(
+          name: LanguageUI.routName,
+          page: ()=>BlocProvider(bloc: LanguageBloc(),child: LanguageUI(),)
+      ))
+      ..add(GetPage(
+          name: UpdateUI.routName,
+          page: ()=>BlocProvider(bloc: UpdateBloc(),child: UpdateUI(),)
       ))
           ////////////////////////////////////////////////////
         ;
